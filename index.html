@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unmute — Storytelling Circles for Those Who Hear Differently</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF6EF;
+    --warm: #F2E8D9;
+    --amber: #C8854A;
+    --amber-light: #E8A96A;
+    --deep: #1C1510;
+    --muted: #7A6A58;
+    --sage: #7A9E7E;
+    --rose: #C4786A;
+    --border: rgba(200,133,74,0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--deep);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 5%;
+    background: rgba(250,246,239,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--deep);
+    letter-spacing: -0.02em;
+  }
+  .logo span { color: var(--amber); }
+  .nav-links {
+    display: flex; gap: 2.5rem; list-style: none;
+    align-items: center;
+  }
+  .nav-links a {
+    text-decoration: none; color: var(--muted); font-size: 0.9rem;
+    font-weight: 500; letter-spacing: 0.02em; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--amber); }
+  .nav-cta {
+    background: var(--amber); color: white !important;
+    padding: 0.55rem 1.4rem; border-radius: 100px;
+    font-weight: 500 !important;
+    transition: background 0.2s !important;
+  }
+  .nav-cta:hover { background: var(--rose) !important; color: white !important; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+  .hamburger span { width: 24px; height: 2px; background: var(--deep); border-radius: 2px; transition: 0.3s; }
+  .mobile-menu {
+    display: none; position: fixed; top: 70px; left: 0; right: 0;
+    background: var(--cream); padding: 2rem 5%; border-bottom: 1px solid var(--border);
+    flex-direction: column; gap: 1.5rem; z-index: 99;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a { text-decoration: none; color: var(--deep); font-size: 1.1rem; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 5% 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 80% 20%, rgba(200,133,74,0.12) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(122,158,126,0.1) 0%, transparent 60%);
+  }
+  .hero-rings {
+    position: absolute; right: -80px; top: 50%; transform: translateY(-50%);
+    width: 500px; height: 500px; pointer-events: none;
+  }
+  .ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid var(--border); inset: 0;
+    animation: pulse-ring 4s ease-in-out infinite;
+  }
+  .ring:nth-child(2) { inset: 40px; animation-delay: 0.5s; }
+  .ring:nth-child(3) { inset: 80px; animation-delay: 1s; }
+  .ring:nth-child(4) { inset: 120px; animation-delay: 1.5s; }
+  @keyframes pulse-ring {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.02); }
+  }
+  .hero-content { position: relative; z-index: 1; max-width: 680px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(200,133,74,0.12); border: 1px solid var(--border);
+    padding: 0.4rem 1rem; border-radius: 100px;
+    font-size: 0.8rem; font-weight: 500; color: var(--amber);
+    margin-bottom: 2rem; letter-spacing: 0.05em;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-tag::before { content: '●'; font-size: 0.5rem; }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 5vw, 4.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease 0.1s both;
+  }
+  .hero h1 em { color: var(--amber); font-style: italic; }
+  .hero p {
+    font-size: 1.1rem; line-height: 1.8; color: var(--muted);
+    max-width: 540px; margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s ease 0.2s both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+  .btn-primary {
+    background: var(--amber); color: white;
+    padding: 0.85rem 2rem; border-radius: 100px;
+    font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: all 0.25s; display: inline-block;
+    box-shadow: 0 4px 20px rgba(200,133,74,0.35);
+  }
+  .btn-primary:hover { background: var(--rose); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(200,133,74,0.4); }
+  .btn-secondary {
+    background: transparent; color: var(--deep);
+    padding: 0.85rem 2rem; border-radius: 100px;
+    font-size: 0.95rem; font-weight: 500;
+    text-decoration: none; border: 1.5px solid var(--border);
+    cursor: pointer; transition: all 0.25s; display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--amber); color: var(--amber); }
+  .hero-stats {
+    display: flex; gap: 3rem; margin-top: 4rem;
+    padding-top: 3rem; border-top: 1px solid var(--border);
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem; color: var(--deep);
+  }
+  .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.2rem; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SECTIONS */
+  section { padding: 6rem 5%; }
+  .section-tag {
+    font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em;
+    color: var(--amber); text-transform: uppercase; margin-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    line-height: 1.15; letter-spacing: -0.02em;
+    margin-bottom: 1.2rem;
+  }
+  .section-sub {
+    color: var(--muted); font-size: 1.05rem;
+    line-height: 1.8; max-width: 560px;
+  }
+
+  /* PAIN SECTION */
+  .pain-section { background: var(--warm); }
+  .pain-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .pain-card {
+    background: white; border-radius: 20px;
+    padding: 2.2rem; border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .pain-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(28,21,16,0.08); }
+  .pain-icon {
+    font-size: 2rem; margin-bottom: 1.2rem;
+  }
+  .pain-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem; margin-bottom: 0.7rem;
+  }
+  .pain-card p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; }
+
+  /* HOW IT WORKS */
+  .steps-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 2rem; margin-top: 3.5rem;
+  }
+  .step {
+    text-align: center; padding: 2rem;
+  }
+  .step-num {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: rgba(200,133,74,0.1); border: 1.5px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Playfair Display', serif; font-size: 1.3rem;
+    color: var(--amber); margin: 0 auto 1.5rem;
+  }
+  .step h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; margin-bottom: 0.6rem; }
+  .step p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+  .steps-connector {
+    display: flex; align-items: center; justify-content: center;
+    gap: 2rem; margin: 1rem 0;
+  }
+
+  /* ACCESSIBILITY */
+  .access-section { background: var(--deep); color: var(--cream); }
+  .access-section .section-tag { color: var(--amber-light); }
+  .access-section .section-title { color: var(--cream); }
+  .access-section .section-sub { color: rgba(250,246,239,0.6); }
+  .access-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 3rem; margin-top: 3.5rem; align-items: center;
+  }
+  .access-features { display: flex; flex-direction: column; gap: 1.5rem; }
+  .access-feat {
+    display: flex; gap: 1.2rem; align-items: flex-start;
+    padding: 1.5rem; border-radius: 16px;
+    border: 1px solid rgba(200,133,74,0.2);
+    background: rgba(200,133,74,0.06);
+    transition: background 0.3s;
+  }
+  .access-feat:hover { background: rgba(200,133,74,0.12); }
+  .feat-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: rgba(200,133,74,0.15); display: flex;
+    align-items: center; justify-content: center; font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+  .access-feat h4 { color: var(--cream); font-size: 1rem; margin-bottom: 0.3rem; }
+  .access-feat p { color: rgba(250,246,239,0.55); font-size: 0.88rem; line-height: 1.6; }
+  .access-visual {
+    background: rgba(200,133,74,0.08); border-radius: 24px;
+    border: 1px solid rgba(200,133,74,0.2);
+    padding: 2.5rem; aspect-ratio: 4/5;
+    display: flex; flex-direction: column; justify-content: center;
+    align-items: center; text-align: center; gap: 1.5rem;
+    position: relative; overflow: hidden;
+  }
+  .access-visual::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at center, rgba(200,133,74,0.15) 0%, transparent 70%);
+  }
+  .caption-demo {
+    background: rgba(0,0,0,0.4); border-radius: 12px;
+    padding: 1rem 1.5rem; font-size: 0.9rem; color: var(--cream);
+    border: 1px solid rgba(200,133,74,0.3); position: relative; z-index: 1;
+    width: 100%;
+  }
+  .caption-demo .speaker { font-size: 0.7rem; color: var(--amber-light); margin-bottom: 0.3rem; }
+  .caption-bar {
+    width: 100%; height: 3px; background: rgba(200,133,74,0.2);
+    border-radius: 3px; position: relative; overflow: hidden; z-index: 1;
+  }
+  .caption-bar::after {
+    content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+    width: 60%; background: var(--amber); border-radius: 3px;
+    animation: captionProgress 2s ease-in-out infinite alternate;
+  }
+  @keyframes captionProgress {
+    from { width: 10%; } to { width: 90%; }
+  }
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    background: rgba(122,158,126,0.2); color: var(--sage);
+    padding: 0.3rem 0.8rem; border-radius: 100px;
+    font-size: 0.75rem; font-weight: 500;
+    border: 1px solid rgba(122,158,126,0.3); z-index: 1;
+  }
+  .live-badge::before {
+    content: '●'; font-size: 0.5rem;
+    animation: blink 1.5s ease infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.2; } }
+
+  /* SESSIONS */
+  .sessions-section { background: var(--warm); }
+  .sessions-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .session-card {
+    background: white; border-radius: 20px;
+    padding: 2rem; border: 1px solid var(--border);
+    transition: all 0.3s; cursor: pointer;
+  }
+  .session-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(28,21,16,0.1); }
+  .session-card.featured { background: var(--amber); color: white; border-color: transparent; }
+  .session-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1.2rem;
+  }
+  .session-date { font-size: 0.8rem; font-weight: 500; opacity: 0.7; }
+  .session-slots {
+    font-size: 0.75rem; font-weight: 500;
+    background: rgba(200,133,74,0.1); color: var(--amber);
+    padding: 0.2rem 0.6rem; border-radius: 100px;
+  }
+  .session-card.featured .session-slots {
+    background: rgba(255,255,255,0.2); color: white;
+  }
+  .session-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; margin-bottom: 0.6rem;
+  }
+  .session-card p { font-size: 0.9rem; opacity: 0.65; line-height: 1.6; margin-bottom: 1.5rem; }
+  .session-footer {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .session-price {
+    font-size: 1.1rem; font-weight: 500;
+    font-family: 'Playfair Display', serif;
+  }
+  .session-btn {
+    font-size: 0.8rem; font-weight: 500;
+    padding: 0.45rem 1rem; border-radius: 100px;
+    border: 1.5px solid currentColor;
+    cursor: pointer; background: transparent; color: inherit;
+    transition: all 0.2s; text-decoration: none; display: inline-block;
+  }
+  .session-card.featured .session-btn {
+    background: white; color: var(--amber); border-color: transparent;
+  }
+  .session-card.featured .session-btn:hover { background: var(--cream); }
+
+  /* TESTIMONIALS */
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem; margin-top: 3.5rem;
+  }
+  .testimonial {
+    background: var(--warm); border-radius: 20px;
+    padding: 2.2rem; border: 1px solid var(--border);
+    position: relative;
+  }
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem; color: var(--amber); opacity: 0.2;
+    line-height: 0; position: absolute; top: 2rem; right: 2rem;
+  }
+  .testimonial p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.05rem; line-height: 1.7; color: var(--deep);
+    font-style: italic; margin-bottom: 1.5rem;
+  }
+  .testimonial-author { display: flex; align-items: center; gap: 0.8rem; }
+  .author-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: var(--amber); display: flex; align-items: center;
+    justify-content: center; font-size: 1rem;
+    color: white; font-family: 'Playfair Display', serif;
+  }
+  .author-name { font-weight: 500; font-size: 0.9rem; }
+  .author-detail { font-size: 0.8rem; color: var(--muted); }
+
+  /* PRICING */
+  .pricing-section { background: var(--warm); }
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem; margin-top: 3.5rem; max-width: 900px; margin-left: auto; margin-right: auto;
+  }
+  .pricing-card {
+    background: white; border-radius: 24px;
+    padding: 2.5rem; border: 1.5px solid var(--border);
+    text-align: center; transition: all 0.3s;
+  }
+  .pricing-card:hover { transform: translateY(-4px); }
+  .pricing-card.popular {
+    background: var(--deep); color: var(--cream);
+    border-color: transparent;
+    box-shadow: 0 20px 60px rgba(28,21,16,0.2);
+  }
+  .pricing-badge {
+    display: inline-block; background: var(--amber);
+    color: white; font-size: 0.7rem; font-weight: 500;
+    padding: 0.25rem 0.8rem; border-radius: 100px;
+    margin-bottom: 1.5rem; letter-spacing: 0.05em;
+  }
+  .price-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem; margin-bottom: 0.3rem;
+  }
+  .price-period { font-size: 0.85rem; opacity: 0.5; margin-bottom: 1.5rem; }
+  .price-features { list-style: none; text-align: left; margin-bottom: 2rem; }
+  .price-features li {
+    padding: 0.6rem 0; border-bottom: 1px solid var(--border);
+    font-size: 0.9rem; display: flex; gap: 0.6rem; align-items: center;
+  }
+  .pricing-card.popular .price-features li { border-color: rgba(250,246,239,0.1); }
+  .price-features li::before { content: '✓'; color: var(--sage); font-weight: 700; }
+
+  /* ABOUT */
+  .about-section { overflow: hidden; }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: center;
+  }
+  .about-visual {
+    position: relative; height: 500px;
+  }
+  .about-card-main {
+    position: absolute; inset: 0;
+    background: var(--warm); border-radius: 24px;
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    justify-content: flex-end; padding: 2.5rem;
+    overflow: hidden;
+  }
+  .about-card-main::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 20rem; color: rgba(200,133,74,0.07);
+    position: absolute; top: -4rem; left: -1rem; line-height: 1;
+  }
+  .about-float {
+    position: absolute; top: -20px; right: -20px;
+    background: var(--amber); color: white;
+    border-radius: 20px; padding: 1.5rem;
+    width: 160px; text-align: center;
+    box-shadow: 0 10px 30px rgba(200,133,74,0.4);
+  }
+  .about-float-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+  }
+  .about-float-label { font-size: 0.8rem; opacity: 0.85; }
+  .about-text h2 { margin-bottom: 1.5rem; }
+  .about-text p {
+    color: var(--muted); line-height: 1.8; margin-bottom: 1.2rem; font-size: 0.98rem;
+  }
+  .about-values {
+    display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;
+  }
+  .value-tag {
+    padding: 0.4rem 1rem; border-radius: 100px;
+    background: rgba(200,133,74,0.1); color: var(--amber);
+    font-size: 0.85rem; font-weight: 500; border: 1px solid var(--border);
+  }
+
+  /* FAQ */
+  .faq-list { max-width: 720px; margin: 3rem auto 0; }
+  .faq-item {
+    border-bottom: 1px solid var(--border); overflow: hidden;
+  }
+  .faq-q {
+    width: 100%; text-align: left; background: none; border: none;
+    padding: 1.5rem 0; cursor: pointer; display: flex;
+    justify-content: space-between; align-items: center;
+    font-size: 1rem; font-weight: 500; color: var(--deep);
+    font-family: 'DM Sans', sans-serif;
+  }
+  .faq-q::after {
+    content: '+'; font-size: 1.5rem; color: var(--amber);
+    transition: transform 0.3s; flex-shrink: 0;
+  }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-a {
+    max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.3s;
+    color: var(--muted); line-height: 1.8; font-size: 0.95rem;
+  }
+  .faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.5rem; }
+
+  /* FOOTER CTA */
+  .footer-cta {
+    background: var(--deep); text-align: center;
+    padding: 6rem 5%;
+  }
+  .footer-cta h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    color: var(--cream); margin-bottom: 1.2rem;
+    letter-spacing: -0.02em;
+  }
+  .footer-cta p {
+    color: rgba(250,246,239,0.55); max-width: 480px;
+    margin: 0 auto 2.5rem; font-size: 1rem; line-height: 1.8;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--deep); border-top: 1px solid rgba(250,246,239,0.07);
+    padding: 3rem 5% 2rem;
+  }
+  .footer-inner {
+    display: grid; grid-template-columns: 2fr 1fr 1fr;
+    gap: 3rem; margin-bottom: 2.5rem;
+  }
+  .footer-brand .logo { display: block; margin-bottom: 0.8rem; color: var(--cream); }
+  .footer-brand p { color: rgba(250,246,239,0.4); font-size: 0.88rem; line-height: 1.7; max-width: 280px; }
+  .footer-col h4 { color: var(--cream); font-size: 0.85rem; font-weight: 500; margin-bottom: 1rem; letter-spacing: 0.05em; }
+  .footer-col a {
+    display: block; color: rgba(250,246,239,0.45);
+    text-decoration: none; font-size: 0.88rem;
+    margin-bottom: 0.6rem; transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--amber-light); }
+  .footer-bottom {
+    border-top: 1px solid rgba(250,246,239,0.07);
+    padding-top: 1.5rem; display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: wrap; gap: 1rem;
+  }
+  .footer-bottom p { color: rgba(250,246,239,0.3); font-size: 0.82rem; }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(28,21,16,0.7); backdrop-filter: blur(8px);
+    align-items: center; justify-content: center; padding: 2rem;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: white; border-radius: 24px;
+    padding: 3rem; max-width: 500px; width: 100%;
+    position: relative; animation: modalIn 0.35s ease both;
+  }
+  @keyframes modalIn {
+    from { opacity: 0; transform: scale(0.95) translateY(20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  .modal-close {
+    position: absolute; top: 1.2rem; right: 1.2rem;
+    background: var(--warm); border: none; border-radius: 50%;
+    width: 36px; height: 36px; cursor: pointer; font-size: 1.1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+  }
+  .modal-close:hover { background: var(--border); }
+  .modal h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; margin-bottom: 0.5rem;
+  }
+  .modal p { color: var(--muted); font-size: 0.95rem; margin-bottom: 2rem; }
+  .form-group { margin-bottom: 1.2rem; }
+  .form-group label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 0.4rem; }
+  .form-group input, .form-group select, .form-group textarea {
+    width: 100%; padding: 0.75rem 1rem;
+    border: 1.5px solid var(--border); border-radius: 12px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+    background: var(--cream); transition: border-color 0.2s;
+    outline: none;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    border-color: var(--amber);
+  }
+  .form-group textarea { min-height: 90px; resize: vertical; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(100px);
+    background: var(--deep); color: var(--cream);
+    padding: 1rem 2rem; border-radius: 100px;
+    font-size: 0.9rem; z-index: 300; transition: transform 0.4s ease;
+    border: 1px solid rgba(200,133,74,0.3);
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-rings { display: none; }
+    .access-grid { grid-template-columns: 1fr; }
+    .access-visual { display: none; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-visual { height: 300px; margin-bottom: 1rem; }
+    .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    .hero-stats { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Un<span>mute</span></div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#how">How It Works</a></li>
+    <li><a href="#sessions">Sessions</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal(event)">Join a Circle</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="toggleMenu()">About</a>
+  <a href="#how" onclick="toggleMenu()">How It Works</a>
+  <a href="#sessions" onclick="toggleMenu()">Sessions</a>
+  <a href="#pricing" onclick="toggleMenu()">Pricing</a>
+  <a href="#faq" onclick="toggleMenu()">FAQ</a>
+  <a href="#" class="btn-primary" onclick="openModal(event); toggleMenu()">Join a Circle</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-rings">
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">India's First Accessible Storytelling Community</div>
+    <h1>Your Story Deserves an Audience That <em>Truly Listens</em></h1>
+    <p>A private, AI-captioned storytelling circle for those navigating hearing loss and rebuilding confidence. Connect with strangers who understand — without the fear of being misunderstood.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-primary" onclick="openModal(event)">Join Your First Circle — Free</a>
+      <a href="#how" class="btn-secondary">See How It Works</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Members & Growing</div>
+      </div>
+      <div>
+        <div class="stat-num">40+</div>
+        <div class="stat-label">Circles Hosted</div>
+      </div>
+      <div>
+        <div class="stat-num">100%</div>
+        <div class="stat-label">AI-Captioned Sessions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAIN POINTS -->
+<section class="pain-section" id="about">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-tag">We Understand</div>
+    <h2 class="section-title">You Shouldn't Have to Disappear to Feel Safe</h2>
+    <p class="section-sub">Hearing loss doesn't just affect what you hear — it quietly erodes your confidence in social spaces. We built Unmute for exactly these moments.</p>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon">🎭</div>
+        <h3>The Social Strain</h3>
+        <p>Tired of nodding along in noisy rooms when you can't actually hear what's being said? You're not alone in this exhausting performance.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🪞</div>
+        <h3>The Hidden Identity</h3>
+        <p>Feeling like you have to mask your hearing loss to avoid awkward pity or unsolicited "cures"? Your experience is valid — and shareable.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon">🌊</div>
+        <h3>The Lost Voice</h3>
+        <p>Wanting to share your story but not knowing who will truly listen without judgment? We've created a space where your voice is the centrepiece.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background:white;">
+  <div style="max-width:1200px;margin:0 auto;text-align:center;">
+    <div class="section-tag">The Process</div>
+    <h2 class="section-title">How a Circle Works</h2>
+    <p class="section-sub" style="margin:0 auto;">Simple, structured, and safe. Every session follows a gentle flow designed to make opening up feel natural — even for first-timers.</p>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Pick a Theme</h3>
+        <p>Choose a session that resonates — from "Navigating the Workplace" to "Rediscovering Joy in Music."</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Enter the Circle</h3>
+        <p>Join a small, curated group of 5–7 strangers on our fully accessible, AI-captioned platform.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Tell Your Story</h3>
+        <p>Share a 5-minute story, or simply listen. A trained facilitator ensures everyone has space to speak.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Feel Heard</h3>
+        <p>Others reflect back — not advice, just empathy. You leave lighter than you arrived.</p>
+      </div>
+    </div>
+    <div style="margin-top:3rem;padding:2rem;background:var(--warm);border-radius:20px;border:1px solid var(--border);max-width:700px;margin-left:auto;margin-right:auto;">
+      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:0.8rem;font-style:italic;">"The Ground Rules"</div>
+      <div style="display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;font-size:0.88rem;color:var(--muted);">
+        <span>✓ No advice-giving (unless asked)</span>
+        <span>✓ No interrupting</span>
+        <span>✓ What's said here, stays here</span>
+        <span>✓ Pseudonyms welcome</span>
+        <span>✓ Camera optional</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCESSIBILITY -->
+<section class="access-section" id="accessibility">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-tag">Accessibility First</div>
+    <h2 class="section-title">Built for the Way You Experience the World</h2>
+    <p class="section-sub">Every feature of Unmute is designed with hearing differences in mind — not as an afterthought, but as the foundation.</p>
+    <div class="access-grid">
+      <div class="access-features">
+        <div class="access-feat">
+          <div class="feat-icon">💬</div>
+          <div>
+            <h4>Real-Time AI Captions</h4>
+            <p>Every word spoken is transcribed instantly on screen using Google Live Transcribe. You'll never miss a moment.</p>
+          </div>
+        </div>
+        <div class="access-feat">
+          <div class="feat-icon">🎭</div>
+          <div>
+            <h4>Avatar Mode</h4>
+            <p>Not camera-ready? Join as an AI avatar. Let your voice — or your typed words — do the talking.</p>
+          </div>
+        </div>
+        <div class="access-feat">
+          <div class="feat-icon">🔕</div>
+          <div>
+            <h4>One Speaker at a Time</h4>
+            <p>Our facilitators enforce a strict flow. No cross-talking, no interruptions — just clear, sequential conversation.</p>
+          </div>
+        </div>
+        <div class="access-feat">
+          <div class="feat-icon">🔒</div>
+          <div>
+            <h4>Zero-Recording Promise</h4>
+            <p>Sessions are never recorded. No audio, no video. Your stories are yours — shared only in the moment.</p>
+          </div>
+        </div>
+      </div>
+      <div class="access-visual">
+        <div class="live-badge">Live Session in Progress</div>
+        <div class="caption-demo">
+          <div class="speaker">Priya (Blue Jay) is speaking...</div>
+          <div style="margin-bottom:0.8rem;">"When I stopped hiding my hearing aid, something unexpected happened — people started treating me like I had something worth saying."</div>
+          <div class="caption-bar"></div>
+        </div>
+        <div style="color:rgba(250,246,239,0.4);font-size:0.8rem;z-index:1;">
+          5 listeners · AI-captioned · Anonymous
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UPCOMING SESSIONS -->
+<section class="sessions-section" id="sessions">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-tag">Upcoming Circles</div>
+    <h2 class="section-title">Join a Session This Month</h2>
+    <p class="section-sub">Each circle is themed and curated. Spots are intentionally kept small for intimacy.</p>
+    <div class="sessions-grid">
+      <div class="session-card featured">
+        <div class="session-meta">
+          <span class="session-date">March 7, 2026 · 7:30 PM</span>
+          <span class="session-slots" style="background:rgba(255,255,255,0.2);color:white;">2 slots left</span>
+        </div>
+        <h3>Navigating Family Dinners</h3>
+        <p>For those who've felt lost in the noise of large family gatherings — and found creative ways to stay present.</p>
+        <div class="session-footer">
+          <span class="session-price">₹299</span>
+          <a href="#" class="session-btn" onclick="openModal(event)">Reserve Spot →</a>
+        </div>
+      </div>
+      <div class="session-card">
+        <div class="session-meta">
+          <span class="session-date">March 14, 2026 · 6:00 PM</span>
+          <span class="session-slots">5 slots left</span>
+        </div>
+        <h3>The Confidence to Ask for Help</h3>
+        <p>Exploring the vulnerability and courage it takes to say "I didn't catch that" — and how to own it.</p>
+        <div class="session-footer">
+          <span class="session-price">₹299</span>
+          <a href="#" class="session-btn" onclick="openModal(event)">Reserve Spot →</a>
+        </div>
+      </div>
+      <div class="session-card">
+        <div class="session-meta">
+          <span class="session-date">March 21, 2026 · 8:00 PM</span>
+          <span class="session-slots">6 slots left</span>
+        </div>
+        <h3>Rediscovering Music & Joy</h3>
+        <p>Stories of finding a new relationship with sound, rhythm, and music — however that looks for you.</p>
+        <div class="session-footer">
+          <span class="session-price">₹299</span>
+          <a href="#" class="session-btn" onclick="openModal(event)">Reserve Spot →</a>
+        </div>
+      </div>
+      <div class="session-card">
+        <div class="session-meta">
+          <span class="session-date">March 28, 2026 · 7:00 PM</span>
+          <span class="session-slots">FREE SESSION</span>
+        </div>
+        <h3>First-Timer Open Circle</h3>
+        <p>A gentle introduction with no theme — just strangers sharing whatever's on their hearts. Perfect for your first visit.</p>
+        <div class="session-footer">
+          <span class="session-price" style="color:var(--sage);">Free</span>
+          <a href="#" class="session-btn" onclick="openModal(event)">Reserve Spot →</a>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="#" class="btn-secondary" onclick="openModal(event)">Request a Custom Topic →</a>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section style="background:white;">
+  <div style="max-width:1200px;margin:0 auto;">
+    <div class="section-tag">Stories from Members</div>
+    <h2 class="section-title">What People Are Saying</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial">
+        <div class="quote-mark">"</div>
+        <p>For the first time in years, I didn't have to say 'Sorry, can you repeat that?' I just felt... heard.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">A</div>
+          <div>
+            <div class="author-name">Anish, 32</div>
+            <div class="author-detail">Mumbai · Member since Jan 2026</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="quote-mark">"</div>
+        <p>I came to listen to others but ended up sharing my own story for the first time. The captions meant I caught every word — nothing slipped by me.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">R</div>
+          <div>
+            <div class="author-name">Rekha, 41</div>
+            <div class="author-detail">Bengaluru · Member since Dec 2025</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <div class="quote-mark">"</div>
+        <p>I used the avatar option because I was nervous about showing my face. Nobody cared. They only cared about what I had to say. That changed everything.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">K</div>
+          <div>
+            <div class="author-name">Kartik, 27</div>
+            <div class="author-detail">Delhi · Member since Feb 2026</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT FOUNDER -->
+<section class="about-section">
+  <div style="max-width:1200px;margin:0 auto;" id="founder">
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-card-main">
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:var(--muted);position:relative;z-index:1;">"Silence should be a choice, never a consequence."</div>
+        </div>
+        <div class="about-float">
+          <div class="about-float-num">3 Yrs</div>
+          <div class="about-float-label">Building Safe Spaces</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <div class="section-tag">About Unmute</div>
+        <h2 class="section-title">Built from Personal Experience</h2>
+        <p>Unmute was born from a simple but urgent observation: people with hearing loss are not lacking stories — they're lacking spaces where their stories can be heard on their own terms.</p>
+        <p>We are not a clinic, a therapy service, or a disability support group. We are a creative community, built on the belief that storytelling is one of the most powerful tools for rebuilding confidence and human connection.</p>
+        <p>Every session is designed to flip the script — instead of your hearing being the thing that defines the interaction, your story becomes the centrepiece.</p>
+        <div class="about-values">
+          <span class="value-tag">Empathy First</span>
+          <span class="value-tag">No Medical Advice</span>
+          <span class="value-tag">Creative Community</span>
+          <span class="value-tag">Radical Privacy</span>
+          <span class="value-tag">India-Made</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing-section" id="pricing">
+  <div style="max-width:1200px;margin:0 auto;text-align:center;">
+    <div class="section-tag">Membership</div>
+    <h2 class="section-title">Simple, Honest Pricing</h2>
+    <p class="section-sub" style="margin:0 auto;">Start free. Stay because it matters. We also offer a "Pay What You Can" option — just reach out.</p>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem;">Drop-In</h3>
+        <div class="price-num">₹299</div>
+        <div class="price-period">per session</div>
+        <ul class="price-features">
+          <li>Access to one themed circle</li>
+          <li>Full AI captioning</li>
+          <li>Avatar mode available</li>
+          <li>Facilitator-led session</li>
+        </ul>
+        <a href="#" class="btn-secondary" style="display:block;text-align:center;" onclick="openModal(event)">Book a Session</a>
+      </div>
+      <div class="pricing-card popular">
+        <div class="pricing-badge">MOST POPULAR</div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem;color:var(--cream);">Inner Circle</h3>
+        <div class="price-num">₹499</div>
+        <div class="price-period" style="color:rgba(250,246,239,0.4);">per month</div>
+        <ul class="price-features">
+          <li>Unlimited sessions</li>
+          <li>1-on-1 mentor matching</li>
+          <li>Private member forum</li>
+          <li>Early access to new circles</li>
+          <li>Monthly "Listening Circle" exclusive</li>
+        </ul>
+        <a href="#" class="btn-primary" style="display:block;text-align:center;" onclick="openModal(event)">Become a Member</a>
+      </div>
+      <div class="pricing-card">
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem;">Free</h3>
+        <div class="price-num" style="font-size:2.5rem;">Try First</div>
+        <div class="price-period">your first session</div>
+        <ul class="price-features">
+          <li>One free open circle session</li>
+          <li>Full AI captioning</li>
+          <li>Meet the community</li>
+          <li>No commitment required</li>
+        </ul>
+        <a href="#" class="btn-secondary" style="display:block;text-align:center;" onclick="openModal(event)">Join Free Session</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:white;" id="faq">
+  <div style="max-width:1200px;margin:0 auto;text-align:center;">
+    <div class="section-tag">Questions</div>
+    <h2 class="section-title">Frequently Asked</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">Do I need to have hearing loss to join?</button>
+        <div class="faq-a">Not at all. While Unmute was built with hearing differences in mind, our circles are open to anyone who wants to share their story in a structured, empathetic space. All we ask is that you respect the accessibility needs of others in your circle.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">What if I'm too nervous to share?</button>
+        <div class="faq-a">Listening is a completely valid role. Many members spend their first few sessions just absorbing stories. Your presence itself is a contribution. There is absolutely no pressure to speak.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">Are sessions in Hindi or regional languages?</button>
+        <div class="faq-a">We currently host circles in English and Hinglish. Hindi-medium circles are in development. If you'd like a circle in a specific regional language, reach out — if there's demand, we'll make it happen.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">How do the AI captions work?</button>
+        <div class="faq-a">We use real-time AI transcription tools (Google Live Transcribe or Otter.ai) integrated into our video sessions. Every spoken word appears as text on screen with minimal delay. If captions are inaccurate, our facilitator can clarify in the chat.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">Is this therapy or counselling?</button>
+        <div class="faq-a">No. Unmute is a peer storytelling community — not a therapeutic service. We do not provide medical, audiological, or psychological advice. If you are experiencing a mental health crisis, please connect with a qualified professional. We are here for community and connection, not clinical support.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">Can I request a refund?</button>
+        <div class="faq-a">If you attend a session and feel it wasn't right for you, we offer a full refund within 48 hours — no questions asked. We'd rather you feel comfortable than locked in.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER CTA -->
+<section class="footer-cta">
+  <h2>Don't Let Silence Be<br>Your Only Company</h2>
+  <p>Your first circle is free. Come and see what it feels like to be truly heard.</p>
+  <a href="#" class="btn-primary" onclick="openModal(event)">Book Your Free Intro Session →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="logo">Un<span>mute</span></span>
+      <p>India's first accessible storytelling community — built for those who hear the world differently and have stories worth sharing.</p>
+    </div>
+    <div class="footer-col">
+      <h4>EXPLORE</h4>
+      <a href="#how">How It Works</a>
+      <a href="#sessions">Upcoming Sessions</a>
+      <a href="#pricing">Membership</a>
+      <a href="#founder">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>CONNECT</h4>
+      <a href="#">Instagram</a>
+      <a href="#">LinkedIn</a>
+      <a href="#">WhatsApp Community</a>
+      <a href="#">hello@unmute.in</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Unmute. Built with care in India.</p>
+    <p style="color:rgba(250,246,239,0.25);font-size:0.78rem;">Privacy Policy · Terms · Code of Conduct</p>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <h2>Join a Circle</h2>
+    <p>Reserve your spot or attend the next free open session. We'll send you a confirmation and session link.</p>
+    <div class="form-group">
+      <label>Your Name (or Pseudonym)</label>
+      <input type="text" placeholder="e.g. Priya or 'Blue Jay'" id="f-name">
+    </div>
+    <div class="form-group">
+      <label>Email or WhatsApp Number</label>
+      <input type="text" placeholder="For your session link" id="f-contact">
+    </div>
+    <div class="form-group">
+      <label>Which Session Interests You?</label>
+      <select id="f-session">
+        <option>March 7 — Navigating Family Dinners (₹299)</option>
+        <option>March 14 — The Confidence to Ask for Help (₹299)</option>
+        <option>March 21 — Rediscovering Music & Joy (₹299)</option>
+        <option>March 28 — First-Timer Open Circle (FREE)</option>
+        <option>Just exploring — let me know about all sessions</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>Anything you'd like us to know? (optional)</label>
+      <textarea placeholder="Accessibility needs, questions, anything at all..."></textarea>
+    </div>
+    <button class="btn-primary" style="width:100%;border:none;font-size:1rem;padding:1rem;" onclick="submitForm()">Reserve My Spot →</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">🎉 You're in! Check your inbox for the session link.</div>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
+  function openModal(e) {
+    e.preventDefault();
+    document.getElementById('modal').classList.add('open');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('open');
+  }
+
+  function closeModalOutside(e) {
+    if (e.target === document.getElementById('modal')) closeModal();
+  }
+
+  function submitForm() {
+    const name = document.getElementById('f-name').value;
+    const contact = document.getElementById('f-contact').value;
+    if (!name || !contact) {
+      alert('Please fill in your name and contact details.');
+      return;
+    }
+    closeModal();
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+  }
+
+  function toggleFAQ(btn) {
+    const item = btn.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.pain-card, .step, .session-card, .testimonial, .access-feat, .pricing-card').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(24px)';
+    el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
