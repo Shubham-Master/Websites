@@ -2,7 +2,7 @@
 
 A safe, accessible storytelling community for people navigating hearing loss and rebuilding confidence — one story at a time.
 
-🌐 **Live at:** [unmute.vercel.app]([https://websites-three-azure.vercel.app/#how])
+🌐 **Live at:** [unmute.vercel.app](https://websites-three-azure.vercel.app/#how)
 
 ---
 
