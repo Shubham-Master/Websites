@@ -1,6 +1,6 @@
 # Websites
 
-##Structure##
+
 
 unmute/
 ├── public/                  # Frontend
