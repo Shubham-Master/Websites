@@ -420,10 +420,13 @@
     overflow: hidden;
   }
   .about-card-main::before {
-    content: '"';
-    font-family: 'Playfair Display', serif;
-    font-size: 20rem; color: rgba(200,133,74,0.07);
-    position: absolute; top: -4rem; left: -1rem; line-height: 1;
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(28,21,16,0.65) 0%, transparent 55%);
+    border-radius: 24px; z-index: 1;
+  }
+  .about-card-main > div {
+    color: white !important;
   }
   .about-float {
     position: absolute; top: -20px; right: -20px;
