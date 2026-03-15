@@ -14,6 +14,8 @@
 
   window.UNMUTE_APP_CONFIG = {
     ...existingConfig,
-    apiBaseUrl: existingConfig.apiBaseUrl || (isLocalHost ? "http://localhost:4000/api/v1" : null)
+    apiBaseUrl:
+      existingConfig.apiBaseUrl ||
+      (isLocalHost ? "http://localhost:4000/api/v1" : "https://unmute-backend-rkl1.onrender.com/api/v1")
   };
 })();
