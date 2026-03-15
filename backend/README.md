@@ -65,6 +65,21 @@ docker build -t unmute-backend .
 docker run --env-file .env -p 4000:4000 unmute-backend
 ```
 
+## Render + Vercel + Supabase
+
+This repo is now set up for:
+
+- frontend on Vercel
+- backend on Render
+- database on Supabase in the next phase
+
+Notes:
+
+- `../render.yaml` can create the Render backend service from this monorepo.
+- On Render, `APP_URL` can fall back to `RENDER_EXTERNAL_URL` automatically.
+- You still need to set `CORS_ORIGIN` to your Vercel frontend domain.
+- Supabase is not wired yet; the backend still uses in-memory storage until Phase 2.
+
 ## Notes
 
 - Payment order creation is mocked for now, but the API shape is ready for Razorpay wiring.

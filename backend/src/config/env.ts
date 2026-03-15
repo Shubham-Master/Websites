@@ -3,6 +3,8 @@ import { z } from "zod";
 
 dotenv.config();
 
+const defaultAppUrl = process.env.RENDER_EXTERNAL_URL || "http://localhost:4000";
+
 const booleanFromEnv = z.preprocess((value) => {
   if (typeof value !== "string") {
     return value;
@@ -24,7 +26,7 @@ const envSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   PORT: z.coerce.number().int().positive().default(4000),
   HOST: z.string().min(1).default("0.0.0.0"),
-  APP_URL: z.string().url().default("http://localhost:4000"),
+  APP_URL: z.string().url().default(defaultAppUrl),
   CORS_ORIGIN: z.string().min(1).default("*"),
   BOOKING_HOLD_MINUTES: z.coerce.number().int().positive().default(10),
   TRUST_PROXY: booleanFromEnv.default(false)

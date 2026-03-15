@@ -47,6 +47,18 @@ The landing page now expects a real booking backend instead of silently falling 
    - frontend sessions load successfully
    - form submits reach the backend
 
+## Chosen stack
+
+- Frontend: Vercel
+- Backend: Render
+- Database: Supabase
+
+Current status:
+
+- Vercel frontend wiring is ready
+- Render backend config is prepared via `render.yaml`
+- Supabase database integration is still pending for Phase 2
+
 ---
 
 ## Contributing

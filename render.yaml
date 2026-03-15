@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: unmute-backend
+    runtime: docker
+    rootDir: backend
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: CORS_ORIGIN
+        sync: false
+      - key: BOOKING_HOLD_MINUTES
+        value: 10
+      - key: TRUST_PROXY
+        value: true
