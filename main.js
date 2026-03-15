@@ -5,7 +5,8 @@ const state = {
   selectedSessionId: '',
   apiBaseUrl: API_BASE_URL,
   initialSessionsMarkup: '',
-  initialSessionOptionsMarkup: ''
+  initialSessionOptionsMarkup: '',
+  liveSession: null
 };
 
 function buildApiCandidates() {
@@ -145,6 +146,34 @@ function getPriceLabel(session) {
   return session.isFree ? 'Free' : `₹${session.priceInr}`;
 }
 
+function updateLiveSessionPreview(liveSession) {
+  const preview = byId('liveSessionPreview');
+  const grid = byId('accessGrid');
+  if (!preview || !grid) {
+    return;
+  }
+
+  if (!liveSession) {
+    preview.classList.add('is-hidden');
+    grid.classList.add('no-live-preview');
+    return;
+  }
+
+  preview.classList.remove('is-hidden');
+  grid.classList.remove('no-live-preview');
+
+  const quote = byId('liveSessionQuote');
+  const meta = byId('liveSessionMeta');
+
+  if (quote && liveSession.quote) {
+    quote.textContent = liveSession.quote;
+  }
+
+  if (meta && liveSession.meta) {
+    meta.textContent = liveSession.meta;
+  }
+}
+
 function renderSessions() {
   const grid = byId('sessionsGrid');
   if (!grid) {
@@ -221,12 +250,16 @@ async function loadSessions() {
 
     const data = await response.json();
     state.sessions = Array.isArray(data.items) ? data.items : [];
+    state.liveSession = data.liveSession || null;
     renderSessions();
+    updateLiveSessionPreview(state.liveSession);
     syncSessionSelect();
   } catch (error) {
     console.error(error);
     state.sessions = [];
+    state.liveSession = null;
     renderSessions();
+    updateLiveSessionPreview(null);
     const detail = error instanceof Error ? error.message : 'Unknown error';
     showToast(`Upcoming sessions could not load right now. ${detail}`);
     syncSessionSelect();
@@ -382,4 +415,5 @@ window.toggleFAQ = toggleFAQ;
 applyRevealAnimations();
 state.initialSessionsMarkup = byId('sessionsGrid') ? byId('sessionsGrid').innerHTML : '';
 state.initialSessionOptionsMarkup = byId('f-session') ? byId('f-session').innerHTML : '';
+updateLiveSessionPreview(null);
 void loadSessions();
