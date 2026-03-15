@@ -192,54 +192,10 @@
     <div class="section-tag">Upcoming Circles</div>
     <h2 class="section-title">Join a Session This Month</h2>
     <p class="section-sub">Each circle is themed and curated. Spots are intentionally kept small for intimacy.</p>
-    <div class="sessions-grid" id="sessionsGrid">
-      <div class="session-card featured">
-        <div class="session-meta">
-          <span class="session-date">March 7, 2026 · 7:30 PM</span>
-          <span class="session-slots" style="background:rgba(255,255,255,0.2);color:white;">2 slots left</span>
-        </div>
-        <h3>Navigating Family Dinners</h3>
-        <p>For those who've felt lost in the noise of large family gatherings — and found creative ways to stay present.</p>
-        <div class="session-footer">
-          <span class="session-price">₹299</span>
-          <a href="#" class="session-btn" onclick="openModal(event)">Reserve Spot →</a>
-        </div>
-      </div>
-      <div class="session-card">
-        <div class="session-meta">
-          <span class="session-date">March 14, 2026 · 6:00 PM</span>
-          <span class="session-slots">5 slots left</span>
-        </div>
-        <h3>The Confidence to Ask for Help</h3>
-        <p>Exploring the vulnerability and courage it takes to say "I didn't catch that" — and how to own it.</p>
-        <div class="session-footer">
-          <span class="session-price">₹299</span>
-          <a href="#" class="session-btn" onclick="openModal(event)">Reserve Spot →</a>
-        </div>
-      </div>
-      <div class="session-card">
-        <div class="session-meta">
-          <span class="session-date">March 21, 2026 · 8:00 PM</span>
-          <span class="session-slots">6 slots left</span>
-        </div>
-        <h3>Rediscovering Music & Joy</h3>
-        <p>Stories of finding a new relationship with sound, rhythm, and music — however that looks for you.</p>
-        <div class="session-footer">
-          <span class="session-price">₹299</span>
-          <a href="#" class="session-btn" onclick="openModal(event)">Reserve Spot →</a>
-        </div>
-      </div>
-      <div class="session-card">
-        <div class="session-meta">
-          <span class="session-date">March 28, 2026 · 7:00 PM</span>
-          <span class="session-slots">FREE SESSION</span>
-        </div>
-        <h3>First-Timer Open Circle</h3>
-        <p>A gentle introduction with no theme — just strangers sharing whatever's on their hearts. Perfect for your first visit.</p>
-        <div class="session-footer">
-          <span class="session-price" style="color:var(--sage);">Free</span>
-          <a href="#" class="session-btn" onclick="openModal(event)">Reserve Spot →</a>
-        </div>
+    <div class="sessions-grid sessions-grid--status" id="sessionsGrid">
+      <div class="sessions-state" data-variant="loading">
+        <h3>Loading live session schedule</h3>
+        <p>We are fetching current circles from the booking backend.</p>
       </div>
     </div>
     <div style="text-align:center;margin-top:2.5rem;">
@@ -471,7 +427,7 @@
     <div class="form-group">
       <label>Which Session Interests You?</label>
       <select id="f-session">
-        <option value="">Loading sessions...</option>
+        <option value="">Connecting to live session schedule...</option>
       </select>
     </div>
     <div class="topic-panel">
@@ -508,6 +464,7 @@
 <!-- TOAST -->
 <div class="toast" id="toast">🎉 You're in! Check your inbox for the session link.</div>
 
+<script src="app-config.js"></script>
 <script src="main.js"></script>
 
 </body>

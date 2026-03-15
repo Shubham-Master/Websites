@@ -1,7 +1,7 @@
 import Fastify from "fastify";
 import cors from "@fastify/cors";
 import type { Store } from "./store/store.js";
-import { env } from "./config/env.js";
+import { env, isCorsOriginAllowed } from "./config/env.js";
 import { HttpError } from "./lib/http-error.js";
 import { registerHealthRoutes } from "./routes/health.js";
 import { registerSessionRoutes } from "./routes/sessions.js";
@@ -11,11 +11,15 @@ import { registerPaymentRoutes } from "./routes/payments.js";
 
 export async function buildApp(store: Store) {
   const app = Fastify({
-    logger: true
+    logger: true,
+    trustProxy: env.TRUST_PROXY
   });
 
   await app.register(cors, {
-    origin: true
+    origin(origin, callback) {
+      callback(null, isCorsOriginAllowed(origin));
+    },
+    methods: ["GET", "POST", "OPTIONS"]
   });
 
   await registerHealthRoutes(app);

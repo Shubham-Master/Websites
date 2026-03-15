@@ -1,40 +1,73 @@
-const API_BASE_URL = window.UNMUTE_API_BASE_URL || null;
+const LOCAL_API_BASE_URL = 'http://localhost:4000/api/v1';
+
+function normalizeApiBaseUrl(value) {
+  if (typeof value !== 'string') {
+    return null;
+  }
+
+  const trimmed = value.trim();
+  if (!trimmed) {
+    return null;
+  }
+
+  return trimmed.replace(/\/+$/, '');
+}
+
+function isLocalFrontend() {
+  const hostname = window.location.hostname;
+  return (
+    window.location.protocol === 'file:' ||
+    hostname === 'localhost' ||
+    hostname === '127.0.0.1' ||
+    hostname === '[::1]' ||
+    hostname === '::1'
+  );
+}
+
+function getConfiguredApiBaseUrl() {
+  const legacyApiBaseUrl = normalizeApiBaseUrl(window.UNMUTE_API_BASE_URL);
+  if (legacyApiBaseUrl) {
+    return legacyApiBaseUrl;
+  }
+
+  const appConfig =
+    typeof window.UNMUTE_APP_CONFIG === 'object' && window.UNMUTE_APP_CONFIG !== null
+      ? window.UNMUTE_APP_CONFIG
+      : {};
+
+  return normalizeApiBaseUrl(appConfig.apiBaseUrl);
+}
 
 const state = {
   sessions: [],
   selectedSessionId: '',
-  apiBaseUrl: API_BASE_URL,
-  initialSessionsMarkup: '',
-  initialSessionOptionsMarkup: '',
-  liveSession: null
+  apiBaseUrl: getConfiguredApiBaseUrl(),
+  liveSession: null,
+  sessionsStatus: 'idle',
+  sessionsError: ''
 };
 
 function buildApiCandidates() {
   const candidates = [];
-  const currentHost = window.location.hostname;
-  const currentOrigin = window.location.origin;
 
-  if (API_BASE_URL) {
-    candidates.push(API_BASE_URL);
+  if (state.apiBaseUrl) {
+    candidates.push(state.apiBaseUrl);
   }
 
-  if (currentOrigin) {
-    candidates.push(`${currentOrigin.replace(/:\d+$/, ':4000')}/api/v1`);
+  if (!state.apiBaseUrl && isLocalFrontend()) {
+    candidates.push(LOCAL_API_BASE_URL);
   }
-
-  if (currentHost && currentHost !== '::' && currentHost !== '[::]') {
-    candidates.push(`http://${currentHost}:4000/api/v1`);
-  }
-
-  candidates.push('http://[::1]:4000/api/v1');
-  candidates.push('http://127.0.0.1:4000/api/v1');
-  candidates.push('http://localhost:4000/api/v1');
 
   return [...new Set(candidates)];
 }
 
-async function apiFetch(path, options) {
-  const candidates = state.apiBaseUrl ? [state.apiBaseUrl] : buildApiCandidates();
+async function apiFetch(path, options = {}) {
+  const candidates = buildApiCandidates();
+
+  if (!candidates.length) {
+    throw new Error('Booking API is not configured. Set apiBaseUrl in app-config.js before deploying this site.');
+  }
+
   let lastNetworkError = null;
 
   for (const baseUrl of candidates) {
@@ -47,7 +80,30 @@ async function apiFetch(path, options) {
     }
   }
 
-  throw lastNetworkError || new Error('Unable to reach the backend API.');
+  throw lastNetworkError instanceof Error ? lastNetworkError : new Error('Unable to reach the backend API.');
+}
+
+function getErrorMessage(error, fallback) {
+  return error instanceof Error && error.message ? error.message : fallback;
+}
+
+function escapeHtml(value) {
+  return String(value ?? '').replace(/[&<>"']/g, (character) => {
+    switch (character) {
+      case '&':
+        return '&amp;';
+      case '<':
+        return '&lt;';
+      case '>':
+        return '&gt;';
+      case '"':
+        return '&quot;';
+      case '\'':
+        return '&#39;';
+      default:
+        return character;
+    }
+  });
 }
 
 function byId(id) {
@@ -66,6 +122,15 @@ function openModal(e, sessionId = '') {
   state.selectedSessionId = sessionId || state.selectedSessionId || '';
   syncSessionSelect();
   clearFormStatus();
+
+  if (state.sessionsStatus === 'loading') {
+    setFormStatus('Live session schedule is still loading. You can still join the interest list now.');
+  }
+
+  if (state.sessionsStatus === 'error') {
+    setFormStatus('Live checkout is unavailable right now. You can still submit the form to join the interest list.');
+  }
+
   byId('modal').classList.add('open');
 }
 
@@ -132,7 +197,7 @@ function getSlotLabel(session) {
   }
 
   if (session.remainingSeats <= 0) {
-    return 'Waitlist open';
+    return session.waitlistOpen ? 'Waitlist open' : 'Sold out';
   }
 
   if (session.remainingSeats === 1) {
@@ -174,33 +239,64 @@ function updateLiveSessionPreview(liveSession) {
   }
 }
 
+function renderSessionsState(variant, title, description) {
+  const grid = byId('sessionsGrid');
+  if (!grid) {
+    return;
+  }
+
+  grid.classList.add('sessions-grid--status');
+  grid.innerHTML = `
+    <div class="sessions-state" data-variant="${variant}">
+      <h3>${escapeHtml(title)}</h3>
+      <p>${escapeHtml(description)}</p>
+    </div>
+  `;
+}
+
 function renderSessions() {
   const grid = byId('sessionsGrid');
   if (!grid) {
     return;
   }
 
-  if (!state.sessions.length) {
-    if (state.initialSessionsMarkup) {
-      grid.innerHTML = state.initialSessionsMarkup;
-    }
+  if (state.sessionsStatus === 'idle' || state.sessionsStatus === 'loading') {
+    renderSessionsState('loading', 'Loading live session schedule', 'We are fetching current circles from the booking backend.');
     return;
   }
 
+  if (state.sessionsStatus === 'error') {
+    renderSessionsState(
+      'error',
+      'Live schedule unavailable',
+      state.sessionsError || 'The booking backend is not reachable right now. Set app-config.js and start the backend to show live sessions.'
+    );
+    return;
+  }
+
+  if (!state.sessions.length) {
+    renderSessionsState(
+      'empty',
+      'No sessions published yet',
+      'The backend is connected, but there are no bookable circles yet. Publish the first session from the backend or admin panel next.'
+    );
+    return;
+  }
+
+  grid.classList.remove('sessions-grid--status');
   grid.innerHTML = state.sessions.map((session, index) => {
     const featuredClass = index === 0 ? ' featured' : '';
-    const slotStyle = index === 0 ? ' style="background:rgba(255,255,255,0.2);color:white;"' : '';
     return `
       <div class="session-card${featuredClass}">
         <div class="session-meta">
-          <span class="session-date">${formatDateTime(session.startsAt)}</span>
-          <span class="session-slots"${slotStyle}>${getSlotLabel(session)}</span>
+          <span class="session-date">${escapeHtml(formatDateTime(session.startsAt))}</span>
+          <span class="session-slots">${escapeHtml(getSlotLabel(session))}</span>
         </div>
-        <h3>${session.title}</h3>
-        <p>${session.description}</p>
+        <h3>${escapeHtml(session.title)}</h3>
+        <p>${escapeHtml(session.description)}</p>
         <div class="session-footer">
-          <span class="session-price"${session.isFree ? ' style="color:var(--sage);"' : ''}>${getPriceLabel(session)}</span>
-          <a href="#" class="session-btn" onclick="openModal(event, '${session.id}')">Reserve Spot →</a>
+          <span class="session-price"${session.isFree ? ' style="color:var(--sage);"' : ''}>${escapeHtml(getPriceLabel(session))}</span>
+          <a href="#" class="session-btn" onclick="openModal(event, '${escapeHtml(session.id)}')">Reserve Spot →</a>
         </div>
       </div>
     `;
@@ -215,19 +311,32 @@ function syncSessionSelect() {
     return;
   }
 
-   if (!state.sessions.length) {
-    if (state.initialSessionOptionsMarkup) {
-      select.innerHTML = state.initialSessionOptionsMarkup;
-    }
-    if (state.selectedSessionId) {
-      select.value = state.selectedSessionId;
-    }
+  if (state.sessionsStatus === 'idle' || state.sessionsStatus === 'loading') {
+    select.disabled = true;
+    select.innerHTML = '<option value="">Connecting to live session schedule...</option>';
     return;
   }
 
+  if (state.sessionsStatus === 'error') {
+    select.disabled = false;
+    select.innerHTML = '<option value="">Just exploring - tell me about upcoming sessions</option>';
+    state.selectedSessionId = '';
+    select.value = '';
+    return;
+  }
+
+  if (!state.sessions.length) {
+    select.disabled = false;
+    select.innerHTML = '<option value="">No live sessions published right now - join the interest list</option>';
+    state.selectedSessionId = '';
+    select.value = '';
+    return;
+  }
+
+  select.disabled = false;
   const options = state.sessions.map((session) => `
-    <option value="${session.id}">
-      ${formatDateTime(session.startsAt)} - ${session.title} (${session.isFree ? 'FREE' : `₹${session.priceInr}`})
+    <option value="${escapeHtml(session.id)}">
+      ${escapeHtml(formatDateTime(session.startsAt))} - ${escapeHtml(session.title)} (${session.isFree ? 'FREE' : `₹${session.priceInr}`})
     </option>
   `).join('');
 
@@ -242,6 +351,11 @@ function syncSessionSelect() {
 }
 
 async function loadSessions() {
+  state.sessionsStatus = 'loading';
+  state.sessionsError = '';
+  renderSessions();
+  syncSessionSelect();
+
   try {
     const response = await apiFetch('/sessions');
     if (!response.ok) {
@@ -251,6 +365,7 @@ async function loadSessions() {
     const data = await response.json();
     state.sessions = Array.isArray(data.items) ? data.items : [];
     state.liveSession = data.liveSession || null;
+    state.sessionsStatus = 'ready';
     renderSessions();
     updateLiveSessionPreview(state.liveSession);
     syncSessionSelect();
@@ -258,10 +373,12 @@ async function loadSessions() {
     console.error(error);
     state.sessions = [];
     state.liveSession = null;
+    state.sessionsStatus = 'error';
+    state.sessionsError = getErrorMessage(error, 'Unable to reach the booking backend.');
+    state.selectedSessionId = '';
     renderSessions();
     updateLiveSessionPreview(null);
-    const detail = error instanceof Error ? error.message : 'Unknown error';
-    showToast(`Upcoming sessions could not load right now. ${detail}`);
+    showToast(`Upcoming sessions could not load right now. ${state.sessionsError}`);
     syncSessionSelect();
   }
 }
@@ -370,7 +487,7 @@ async function submitForm() {
     await loadSessions();
   } catch (error) {
     console.error(error);
-    setFormStatus(error.message || 'Something went wrong. Please try again.', true);
+    setFormStatus(getErrorMessage(error, 'Something went wrong. Please try again.'), true);
   } finally {
     setSubmitLoading(false);
   }
@@ -413,7 +530,7 @@ window.submitForm = submitForm;
 window.toggleFAQ = toggleFAQ;
 
 applyRevealAnimations();
-state.initialSessionsMarkup = byId('sessionsGrid') ? byId('sessionsGrid').innerHTML : '';
-state.initialSessionOptionsMarkup = byId('f-session') ? byId('f-session').innerHTML : '';
+renderSessions();
+syncSessionSelect();
 updateLiveSessionPreview(null);
 void loadSessions();
