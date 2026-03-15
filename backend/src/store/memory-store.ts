@@ -63,6 +63,8 @@ export class MemoryStore implements Store {
       userId: user.id,
       source: input.source,
       selectedSessionId: input.selectedSessionId ?? null,
+      topicChoice: input.topicChoice ?? null,
+      customTopic: input.customTopic ?? null,
       note: input.note ?? null,
       createdAt: new Date().toISOString()
     };
@@ -102,6 +104,8 @@ export class MemoryStore implements Store {
         status: "waitlisted",
         priceInr: session.priceInr,
         confirmationCode: createConfirmationCode(),
+        topicChoice: input.topicChoice ?? null,
+        customTopic: input.customTopic ?? null,
         note: input.note ?? null,
         createdAt: now.toISOString(),
         updatedAt: now.toISOString()
@@ -129,6 +133,8 @@ export class MemoryStore implements Store {
         status: "confirmed",
         priceInr: 0,
         confirmationCode: createConfirmationCode(),
+        topicChoice: input.topicChoice ?? null,
+        customTopic: input.customTopic ?? null,
         note: input.note ?? null,
         createdAt: now.toISOString(),
         updatedAt: now.toISOString()
@@ -166,6 +172,8 @@ export class MemoryStore implements Store {
       status: "pending_payment",
       priceInr: session.priceInr,
       confirmationCode: createConfirmationCode(),
+      topicChoice: input.topicChoice ?? null,
+      customTopic: input.customTopic ?? null,
       note: input.note ?? null,
       createdAt: now.toISOString(),
       updatedAt: now.toISOString()

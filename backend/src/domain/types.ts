@@ -45,6 +45,8 @@ export interface Lead {
   userId: string;
   source: string;
   selectedSessionId: string | null;
+  topicChoice: string | null;
+  customTopic: string | null;
   note: string | null;
   createdAt: string;
 }
@@ -67,6 +69,8 @@ export interface Booking {
   status: BookingStatus;
   priceInr: number;
   confirmationCode: string;
+  topicChoice: string | null;
+  customTopic: string | null;
   note: string | null;
   createdAt: string;
   updatedAt: string;
@@ -94,6 +98,8 @@ export interface LeadInput {
   contact: string;
   contactType: ContactType;
   selectedSessionId?: string | null;
+  topicChoice?: string | null;
+  customTopic?: string | null;
   note?: string | null;
   source: string;
   marketingConsent?: boolean;
@@ -105,6 +111,8 @@ export interface BookingIntentInput {
   contact: string;
   contactType: ContactType;
   pricingMode?: "drop_in" | "membership";
+  topicChoice?: string | null;
+  customTopic?: string | null;
   note?: string | null;
 }
 

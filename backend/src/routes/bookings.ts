@@ -8,7 +8,16 @@ const bookingIntentSchema = z.object({
   contact: z.string().trim().min(3).max(255),
   contactType: z.enum(["email", "whatsapp", "phone"]).default("email"),
   pricingMode: z.enum(["drop_in", "membership"]).optional(),
+  topicChoice: z.string().trim().max(160).optional().nullable(),
+  customTopic: z.string().trim().max(240).optional().nullable(),
   note: z.string().trim().max(1000).optional().nullable()
+}).superRefine((payload, ctx) => {
+  if (!payload.topicChoice && !payload.customTopic) {
+    ctx.addIssue({
+      code: "custom",
+      message: "Please choose a promoted topic or enter a custom topic."
+    });
+  }
 });
 
 export async function registerBookingRoutes(app: FastifyInstance, store: Store): Promise<void> {

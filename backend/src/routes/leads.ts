@@ -7,9 +7,18 @@ const leadSchema = z.object({
   contact: z.string().trim().min(3).max(255),
   contactType: z.enum(["email", "whatsapp", "phone"]).default("email"),
   selectedSessionId: z.string().trim().min(1).optional().nullable(),
+  topicChoice: z.string().trim().max(160).optional().nullable(),
+  customTopic: z.string().trim().max(240).optional().nullable(),
   note: z.string().trim().max(1000).optional().nullable(),
   source: z.string().trim().min(2).max(80),
   marketingConsent: z.boolean().optional()
+}).superRefine((payload, ctx) => {
+  if (!payload.topicChoice && !payload.customTopic) {
+    ctx.addIssue({
+      code: "custom",
+      message: "Please choose a promoted topic or enter a custom topic."
+    });
+  }
 });
 
 export async function registerLeadRoutes(app: FastifyInstance, store: Store): Promise<void> {

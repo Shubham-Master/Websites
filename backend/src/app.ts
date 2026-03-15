@@ -15,7 +15,7 @@ export async function buildApp(store: Store) {
   });
 
   await app.register(cors, {
-    origin: env.CORS_ORIGIN === "*" ? true : env.CORS_ORIGIN.split(",").map((item) => item.trim())
+    origin: true
   });
 
   await registerHealthRoutes(app);

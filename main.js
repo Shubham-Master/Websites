@@ -1,9 +1,53 @@
-const API_BASE_URL = window.UNMUTE_API_BASE_URL || 'http://localhost:4000/api/v1';
+const API_BASE_URL = window.UNMUTE_API_BASE_URL || null;
 
 const state = {
   sessions: [],
-  selectedSessionId: ''
+  selectedSessionId: '',
+  apiBaseUrl: API_BASE_URL,
+  initialSessionsMarkup: '',
+  initialSessionOptionsMarkup: ''
 };
+
+function buildApiCandidates() {
+  const candidates = [];
+  const currentHost = window.location.hostname;
+  const currentOrigin = window.location.origin;
+
+  if (API_BASE_URL) {
+    candidates.push(API_BASE_URL);
+  }
+
+  if (currentOrigin) {
+    candidates.push(`${currentOrigin.replace(/:\d+$/, ':4000')}/api/v1`);
+  }
+
+  if (currentHost && currentHost !== '::' && currentHost !== '[::]') {
+    candidates.push(`http://${currentHost}:4000/api/v1`);
+  }
+
+  candidates.push('http://[::1]:4000/api/v1');
+  candidates.push('http://127.0.0.1:4000/api/v1');
+  candidates.push('http://localhost:4000/api/v1');
+
+  return [...new Set(candidates)];
+}
+
+async function apiFetch(path, options) {
+  const candidates = state.apiBaseUrl ? [state.apiBaseUrl] : buildApiCandidates();
+  let lastNetworkError = null;
+
+  for (const baseUrl of candidates) {
+    try {
+      const response = await fetch(`${baseUrl}${path}`, options);
+      state.apiBaseUrl = baseUrl;
+      return response;
+    } catch (error) {
+      lastNetworkError = error;
+    }
+  }
+
+  throw lastNetworkError || new Error('Unable to reach the backend API.');
+}
 
 function byId(id) {
   return document.getElementById(id);
@@ -108,20 +152,9 @@ function renderSessions() {
   }
 
   if (!state.sessions.length) {
-    grid.innerHTML = `
-      <div class="session-card">
-        <div class="session-meta">
-          <span class="session-date">Backend unavailable</span>
-          <span class="session-slots">Try again</span>
-        </div>
-        <h3>Unable to load live sessions</h3>
-        <p>Start the backend on localhost:4000 and refresh this page to see real availability.</p>
-        <div class="session-footer">
-          <span class="session-price">-</span>
-          <a href="#" class="session-btn" onclick="openModal(event)">Join Anyway →</a>
-        </div>
-      </div>
-    `;
+    if (state.initialSessionsMarkup) {
+      grid.innerHTML = state.initialSessionsMarkup;
+    }
     return;
   }
 
@@ -153,6 +186,16 @@ function syncSessionSelect() {
     return;
   }
 
+   if (!state.sessions.length) {
+    if (state.initialSessionOptionsMarkup) {
+      select.innerHTML = state.initialSessionOptionsMarkup;
+    }
+    if (state.selectedSessionId) {
+      select.value = state.selectedSessionId;
+    }
+    return;
+  }
+
   const options = state.sessions.map((session) => `
     <option value="${session.id}">
       ${formatDateTime(session.startsAt)} - ${session.title} (${session.isFree ? 'FREE' : `₹${session.priceInr}`})
@@ -171,7 +214,7 @@ function syncSessionSelect() {
 
 async function loadSessions() {
   try {
-    const response = await fetch(`${API_BASE_URL}/sessions`);
+    const response = await apiFetch('/sessions');
     if (!response.ok) {
       throw new Error('Unable to fetch sessions.');
     }
@@ -184,6 +227,8 @@ async function loadSessions() {
     console.error(error);
     state.sessions = [];
     renderSessions();
+    const detail = error instanceof Error ? error.message : 'Unknown error';
+    showToast(`Upcoming sessions could not load right now. ${detail}`);
     syncSessionSelect();
   }
 }
@@ -192,6 +237,8 @@ async function submitForm() {
   const name = byId('f-name').value.trim();
   const contact = byId('f-contact').value.trim();
   const selectedSessionId = byId('f-session').value.trim();
+  const selectedTopic = byId('f-topic').value.trim();
+  const customTopic = byId('f-custom-topic').value.trim();
   const note = byId('f-note').value.trim();
 
   if (!name || !contact) {
@@ -199,12 +246,20 @@ async function submitForm() {
     return;
   }
 
+  if (!selectedTopic && !customTopic) {
+    setFormStatus('Please choose one promoted topic or enter your own topic for review.', true);
+    return;
+  }
+
+  const topicChoice = selectedTopic || null;
+  const finalCustomTopic = customTopic || null;
+
   clearFormStatus();
   setSubmitLoading(true);
 
   try {
     if (!selectedSessionId) {
-      const leadResponse = await fetch(`${API_BASE_URL}/leads`, {
+      const leadResponse = await apiFetch('/leads', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -214,6 +269,8 @@ async function submitForm() {
           contact,
           contactType: inferContactType(contact),
           selectedSessionId: null,
+          topicChoice,
+          customTopic: finalCustomTopic,
           note: note || null,
           source: 'landing-page-modal'
         })
@@ -230,19 +287,21 @@ async function submitForm() {
       return;
     }
 
-    const bookingResponse = await fetch(`${API_BASE_URL}/bookings/intents`, {
+    const bookingResponse = await apiFetch('/bookings/intents', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        sessionId: selectedSessionId,
-        displayName: name,
-        contact,
-        contactType: inferContactType(contact),
-        note: note || null
-      })
-    });
+        body: JSON.stringify({
+          sessionId: selectedSessionId,
+          displayName: name,
+          contact,
+          contactType: inferContactType(contact),
+          topicChoice,
+          customTopic: finalCustomTopic,
+          note: note || null
+        })
+      });
 
     const bookingData = await bookingResponse.json();
     if (!bookingResponse.ok) {
@@ -257,7 +316,7 @@ async function submitForm() {
       return;
     }
 
-    const paymentResponse = await fetch(`${API_BASE_URL}/payments/orders`, {
+    const paymentResponse = await apiFetch('/payments/orders', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -287,6 +346,8 @@ async function submitForm() {
 function resetForm() {
   byId('f-name').value = '';
   byId('f-contact').value = '';
+  byId('f-topic').value = '';
+  byId('f-custom-topic').value = '';
   byId('f-note').value = '';
   state.selectedSessionId = '';
   syncSessionSelect();
@@ -319,4 +380,6 @@ window.submitForm = submitForm;
 window.toggleFAQ = toggleFAQ;
 
 applyRevealAnimations();
+state.initialSessionsMarkup = byId('sessionsGrid') ? byId('sessionsGrid').innerHTML : '';
+state.initialSessionOptionsMarkup = byId('f-session') ? byId('f-session').innerHTML : '';
 void loadSessions();

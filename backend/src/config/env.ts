@@ -5,7 +5,7 @@ dotenv.config();
 
 const envSchema = z.object({
   PORT: z.coerce.number().int().positive().default(4000),
-  HOST: z.string().min(1).default("0.0.0.0"),
+  HOST: z.string().min(1).default("::"),
   APP_URL: z.string().url().default("http://localhost:4000"),
   CORS_ORIGIN: z.string().min(1).default("*"),
   BOOKING_HOLD_MINUTES: z.coerce.number().int().positive().default(10)
