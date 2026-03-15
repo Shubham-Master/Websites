@@ -26,6 +26,7 @@ export async function buildApp(store: Store) {
 
   app.setErrorHandler((error, request, reply) => {
     request.log.error(error);
+    const message = error instanceof Error ? error.message : "Unknown error";
 
     if (error instanceof HttpError) {
       return reply.code(error.statusCode).send({
@@ -33,10 +34,10 @@ export async function buildApp(store: Store) {
       });
     }
 
-    if (error.name === "ZodError") {
+    if (error instanceof Error && error.name === "ZodError") {
       return reply.code(400).send({
         message: "Invalid request payload.",
-        details: error.message
+        details: message
       });
     }
 
