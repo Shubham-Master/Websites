@@ -4,6 +4,10 @@ import { z } from "zod";
 dotenv.config();
 
 const defaultAppUrl = process.env.RENDER_EXTERNAL_URL || "http://localhost:4000";
+const envInput = {
+  ...process.env,
+  DATABASE_URL: process.env.DATABASE_URL || process.env.SUPABASE_DB_URL
+};
 
 const booleanFromEnv = z.preprocess((value) => {
   if (typeof value !== "string") {
@@ -22,6 +26,15 @@ const booleanFromEnv = z.preprocess((value) => {
   return value;
 }, z.boolean());
 
+const optionalUrlFromEnv = z.preprocess((value) => {
+  if (typeof value !== "string") {
+    return value;
+  }
+
+  const trimmed = value.trim();
+  return trimmed ? trimmed : undefined;
+}, z.string().url().optional());
+
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   PORT: z.coerce.number().int().positive().default(4000),
@@ -29,10 +42,13 @@ const envSchema = z.object({
   APP_URL: z.string().url().default(defaultAppUrl),
   CORS_ORIGIN: z.string().min(1).default("*"),
   BOOKING_HOLD_MINUTES: z.coerce.number().int().positive().default(10),
-  TRUST_PROXY: booleanFromEnv.default(false)
+  TRUST_PROXY: booleanFromEnv.default(false),
+  DATABASE_URL: optionalUrlFromEnv,
+  DATABASE_SSL: booleanFromEnv.default(false)
 });
 
-export const env = envSchema.parse(process.env);
+export const env = envSchema.parse(envInput);
+export const hasDatabaseConfig = Boolean(env.DATABASE_URL);
 
 export const allowedCorsOrigins =
   env.CORS_ORIGIN === "*"

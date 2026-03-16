@@ -19,3 +19,7 @@ services:
         value: 10
       - key: TRUST_PROXY
         value: true
+      - key: DATABASE_URL
+        sync: false
+      - key: DATABASE_SSL
+        value: true

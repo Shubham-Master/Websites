@@ -14,7 +14,7 @@ Minimal TypeScript backend for the Unmute landing page.
 ## Current implementation
 
 - Uses Fastify for HTTP APIs
-- Starts with in-memory storage so the frontend can be integrated quickly
+- Uses in-memory storage by default, and switches to PostgreSQL/Supabase when `DATABASE_URL` is set
 - Matches the flows defined in `../docs/backend-design.md`
 - Ready to evolve into PostgreSQL using `../docs/database-schema.sql`
 - Production-oriented env parsing, CORS config, and graceful shutdown are now included
@@ -48,6 +48,8 @@ Copy `.env.example` to `.env` and adjust these values:
 - `CORS_ORIGIN`: your frontend domain, or multiple domains separated by commas
 - `TRUST_PROXY`: set to `true` when running behind a proxy or managed load balancer
 - `BOOKING_HOLD_MINUTES`: how long to reserve paid seats before payment expires
+- `DATABASE_URL`: your Supabase direct Postgres connection string
+- `DATABASE_SSL`: set this to `true` for Supabase direct Postgres connections
 
 ## Frontend integration
 
@@ -71,16 +73,17 @@ This repo is now set up for:
 
 - frontend on Vercel
 - backend on Render
-- database on Supabase in the next phase
+- database on Supabase via direct Postgres connection
 
 Notes:
 
 - `../render.yaml` can create the Render backend service from this monorepo.
 - On Render, `APP_URL` can fall back to `RENDER_EXTERNAL_URL` automatically.
 - You still need to set `CORS_ORIGIN` to your Vercel frontend domain.
-- Supabase is not wired yet; the backend still uses in-memory storage until Phase 2.
+- Run `npm run db:init` once with `DATABASE_URL` set to create the schema in Supabase and seed the starter sessions.
+- When `DATABASE_URL` is set, the backend uses PostgreSQL; otherwise it safely falls back to in-memory mode.
 
 ## Notes
 
 - Payment order creation is mocked for now, but the API shape is ready for Razorpay wiring.
-- Storage is still in-memory for now, so deploy restarts will reset sessions, leads, and bookings until Phase 2 adds PostgreSQL.
+- Deploy restarts are now persistent once Supabase is connected. Without `DATABASE_URL`, restarts still reset in-memory data.

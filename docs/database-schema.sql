@@ -43,6 +43,8 @@ CREATE TABLE leads (
   user_id UUID REFERENCES users(id) ON DELETE SET NULL,
   source VARCHAR(80) NOT NULL,
   selected_session_id UUID,
+  topic_choice VARCHAR(160),
+  custom_topic VARCHAR(240),
   note TEXT,
   status VARCHAR(40) NOT NULL DEFAULT 'new',
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
@@ -105,6 +107,9 @@ CREATE TABLE bookings (
   price_inr INTEGER NOT NULL DEFAULT 0 CHECK (price_inr >= 0),
   currency CHAR(3) NOT NULL DEFAULT 'INR',
   confirmation_code VARCHAR(32) NOT NULL UNIQUE,
+  topic_choice VARCHAR(160),
+  custom_topic VARCHAR(240),
+  note TEXT,
   joined_at TIMESTAMPTZ,
   checked_in_at TIMESTAMPTZ,
   cancelled_at TIMESTAMPTZ,

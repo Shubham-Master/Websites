@@ -15,4 +15,5 @@ export interface Store {
   createBookingIntent(input: BookingIntentInput): Promise<BookingIntentResult>;
   createPaymentOrder(input: PaymentOrderInput): Promise<PaymentOrder>;
   confirmPayment(input: PaymentWebhookInput): Promise<PaymentOrder>;
+  close?(): Promise<void>;
 }

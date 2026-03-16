@@ -1,9 +1,9 @@
 import { buildApp } from "./app.js";
 import { env } from "./config/env.js";
-import { MemoryStore } from "./store/memory-store.js";
+import { createStore } from "./store/create-store.js";
 
 async function start() {
-  const store = new MemoryStore(env.BOOKING_HOLD_MINUTES);
+  const { store, storageMode } = await createStore();
   const app = await buildApp(store);
   let isShuttingDown = false;
 
@@ -17,6 +17,7 @@ async function start() {
 
     try {
       await app.close();
+      await store.close?.();
       process.exit(0);
     } catch (error) {
       app.log.error(error);
@@ -41,7 +42,8 @@ async function start() {
       {
         address,
         environment: env.NODE_ENV,
-        appUrl: env.APP_URL
+        appUrl: env.APP_URL,
+        storageMode
       },
       "Unmute backend listening"
     );
