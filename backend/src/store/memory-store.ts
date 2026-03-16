@@ -45,8 +45,9 @@ export class MemoryStore implements Store {
   constructor(private readonly bookingHoldMinutes = 10) {}
 
   async listSessions(): Promise<SessionWithAvailability[]> {
+    const now = Date.now();
     const sessions = Array.from(this.sessions.values())
-      .filter((session) => session.status === "published")
+      .filter((session) => session.status === "published" && new Date(session.startsAt).getTime() > now)
       .sort((a, b) => a.startsAt.localeCompare(b.startsAt));
 
     return sessions.map((session) => ({
