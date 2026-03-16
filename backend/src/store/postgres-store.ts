@@ -11,6 +11,7 @@ import type {
   PaymentOrder,
   PaymentOrderInput,
   PaymentWebhookInput,
+  Session,
   SessionStatus,
   SessionWithAvailability
 } from "../domain/types.js";
@@ -41,11 +42,19 @@ interface SessionAvailabilityRow {
 
 interface SessionLockRow {
   id: string;
+  slug: string;
+  title: string;
+  description: string;
+  language: string;
   status: SessionStatus;
   starts_at: string | Date;
+  ends_at: string | Date;
+  timezone: string;
   capacity: number;
   price_inr: number;
   is_free: boolean;
+  captions_enabled_by_default: boolean;
+  zero_recording_policy: boolean;
 }
 
 interface ExistingBookingRow {
@@ -57,6 +66,28 @@ interface BookingRow {
   user_id: string;
   price_inr: number;
   status: string;
+}
+
+interface SessionRow {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  language: string;
+  starts_at: string | Date;
+  ends_at: string | Date;
+  timezone: string;
+  capacity: number;
+  price_inr: number;
+  is_free: boolean;
+  status: SessionStatus;
+  captions_enabled_by_default: boolean;
+  zero_recording_policy: boolean;
+}
+
+interface BookingInsertRow {
+  id: string;
+  confirmation_code: string;
 }
 
 interface PaymentRow {
@@ -126,6 +157,25 @@ function mapPayment(row: PaymentRow): PaymentOrder {
   };
 }
 
+function mapSessionRow(row: SessionRow): Session {
+  return {
+    id: row.id,
+    slug: row.slug,
+    title: row.title,
+    description: row.description,
+    language: row.language,
+    startsAt: toIsoString(row.starts_at),
+    endsAt: toIsoString(row.ends_at),
+    timezone: row.timezone,
+    capacity: row.capacity,
+    priceInr: row.price_inr,
+    isFree: row.is_free,
+    status: row.status,
+    captionsEnabledByDefault: row.captions_enabled_by_default,
+    zeroRecordingPolicy: row.zero_recording_policy
+  };
+}
+
 export class PostgresStore implements Store {
   constructor(
     private readonly pool: Pool,
@@ -186,6 +236,34 @@ export class PostgresStore implements Store {
     );
 
     return result.rows.map(mapSession);
+  }
+
+  async getSessionById(sessionId: string): Promise<Session | null> {
+    const result = await this.pool.query<SessionRow>(
+      `
+        SELECT
+          id,
+          slug,
+          title,
+          description,
+          language,
+          starts_at,
+          ends_at,
+          timezone,
+          capacity,
+          price_inr,
+          is_free,
+          status,
+          captions_enabled_by_default,
+          zero_recording_policy
+        FROM sessions
+        WHERE id = $1
+        LIMIT 1
+      `,
+      [sessionId]
+    );
+
+    return result.rows[0] ? mapSessionRow(result.rows[0]) : null;
   }
 
   async createLead(input: LeadInput): Promise<Lead> {
@@ -258,7 +336,21 @@ export class PostgresStore implements Store {
 
       const sessionResult = await client.query<SessionLockRow>(
         `
-          SELECT id, status, starts_at, capacity, price_inr, is_free
+          SELECT
+            id,
+            slug,
+            title,
+            description,
+            language,
+            status,
+            starts_at,
+            ends_at,
+            timezone,
+            capacity,
+            price_inr,
+            is_free,
+            captions_enabled_by_default,
+            zero_recording_policy
           FROM sessions
           WHERE id = $1
           LIMIT 1
@@ -298,7 +390,7 @@ export class PostgresStore implements Store {
       const now = new Date();
 
       if (remainingSeats === 0) {
-        const waitlistBooking = await client.query<IdRow>(
+        const waitlistBooking = await client.query<BookingInsertRow>(
           `
             INSERT INTO bookings (
               user_id,
@@ -312,7 +404,7 @@ export class PostgresStore implements Store {
               note
             )
             VALUES ($1, $2, NULL, 'waitlisted', $3, $4, $5, $6, $7)
-            RETURNING id
+            RETURNING id, confirmation_code
           `,
           [
             userId,
@@ -334,12 +426,13 @@ export class PostgresStore implements Store {
           paymentRequired: false,
           expiresAt: null,
           amountInr: session.price_inr,
+          confirmationCode: waitlistBooking.rows[0].confirmation_code,
           message: "Session is currently full. You have been added to the waitlist."
         };
       }
 
       if (session.is_free) {
-        const booking = await client.query<IdRow>(
+        const booking = await client.query<BookingInsertRow>(
           `
             INSERT INTO bookings (
               user_id,
@@ -353,7 +446,7 @@ export class PostgresStore implements Store {
               note
             )
             VALUES ($1, $2, NULL, 'confirmed', 0, $3, $4, $5, $6)
-            RETURNING id
+            RETURNING id, confirmation_code
           `,
           [
             userId,
@@ -374,6 +467,7 @@ export class PostgresStore implements Store {
           paymentRequired: false,
           expiresAt: null,
           amountInr: 0,
+          confirmationCode: booking.rows[0].confirmation_code,
           message: "Your free session has been confirmed."
         };
       }
@@ -394,7 +488,7 @@ export class PostgresStore implements Store {
         [userId, session.id, input.pricingMode ?? "drop_in", expiresAt]
       );
 
-      const bookingResult = await client.query<IdRow>(
+      const bookingResult = await client.query<BookingInsertRow>(
         `
           INSERT INTO bookings (
             user_id,
@@ -408,7 +502,7 @@ export class PostgresStore implements Store {
             note
           )
           VALUES ($1, $2, $3, 'pending_payment', $4, $5, $6, $7, $8)
-          RETURNING id
+          RETURNING id, confirmation_code
         `,
         [
           userId,
@@ -431,6 +525,7 @@ export class PostgresStore implements Store {
         paymentRequired: true,
         expiresAt: expiresAt.toISOString(),
         amountInr: session.price_inr,
+        confirmationCode: bookingResult.rows[0].confirmation_code,
         message: "Complete payment to confirm your seat."
       };
     } catch (error) {

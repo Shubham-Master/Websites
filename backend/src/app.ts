@@ -8,8 +8,9 @@ import { registerSessionRoutes } from "./routes/sessions.js";
 import { registerLeadRoutes } from "./routes/leads.js";
 import { registerBookingRoutes } from "./routes/bookings.js";
 import { registerPaymentRoutes } from "./routes/payments.js";
+import type { EmailService } from "./notifications/email.js";
 
-export async function buildApp(store: Store) {
+export async function buildApp(store: Store, emailService: EmailService) {
   const app = Fastify({
     logger: true,
     trustProxy: env.TRUST_PROXY
@@ -25,7 +26,7 @@ export async function buildApp(store: Store) {
   await registerHealthRoutes(app);
   await registerSessionRoutes(app, store);
   await registerLeadRoutes(app, store);
-  await registerBookingRoutes(app, store);
+  await registerBookingRoutes(app, store, emailService);
   await registerPaymentRoutes(app, store);
 
   app.setErrorHandler((error, request, reply) => {

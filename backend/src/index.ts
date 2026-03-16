@@ -1,10 +1,11 @@
 import { buildApp } from "./app.js";
 import { env } from "./config/env.js";
+import { createEmailService } from "./notifications/email.js";
 import { createStore } from "./store/create-store.js";
 
 async function start() {
   const { store, storageMode } = await createStore();
-  const app = await buildApp(store);
+  const app = await buildApp(store, createEmailService());
   let isShuttingDown = false;
 
   const shutdown = async (signal: string) => {

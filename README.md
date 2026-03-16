@@ -58,6 +58,7 @@ Current status:
 - Vercel frontend wiring is ready
 - Render backend config is prepared via `render.yaml`
 - Supabase-backed persistence is implemented in the backend; deployment just needs `DATABASE_URL`, `DATABASE_SSL`, and a one-time `npm run db:init`
+- Optional email confirmations can now be enabled with `RESEND_API_KEY` and `EMAIL_FROM`
 
 ---
 

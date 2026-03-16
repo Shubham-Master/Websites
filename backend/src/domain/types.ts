@@ -123,6 +123,7 @@ export interface BookingIntentResult {
   paymentRequired: boolean;
   expiresAt: string | null;
   amountInr: number;
+  confirmationCode?: string | null;
   message: string;
 }
 

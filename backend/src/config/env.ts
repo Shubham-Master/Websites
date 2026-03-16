@@ -35,6 +35,15 @@ const optionalUrlFromEnv = z.preprocess((value) => {
   return trimmed ? trimmed : undefined;
 }, z.string().url().optional());
 
+const optionalStringFromEnv = z.preprocess((value) => {
+  if (typeof value !== "string") {
+    return value;
+  }
+
+  const trimmed = value.trim();
+  return trimmed ? trimmed : undefined;
+}, z.string().min(1).optional());
+
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]).default("development"),
   PORT: z.coerce.number().int().positive().default(4000),
@@ -44,7 +53,10 @@ const envSchema = z.object({
   BOOKING_HOLD_MINUTES: z.coerce.number().int().positive().default(10),
   TRUST_PROXY: booleanFromEnv.default(false),
   DATABASE_URL: optionalUrlFromEnv,
-  DATABASE_SSL: booleanFromEnv.default(false)
+  DATABASE_SSL: booleanFromEnv.default(false),
+  RESEND_API_KEY: optionalStringFromEnv,
+  EMAIL_FROM: optionalStringFromEnv,
+  EMAIL_REPLY_TO: optionalStringFromEnv
 });
 
 export const env = envSchema.parse(envInput);

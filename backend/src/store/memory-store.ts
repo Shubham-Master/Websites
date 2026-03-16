@@ -57,6 +57,10 @@ export class MemoryStore implements Store {
     }));
   }
 
+  async getSessionById(sessionId: string): Promise<Session | null> {
+    return this.sessions.get(sessionId) ?? null;
+  }
+
   async createLead(input: LeadInput): Promise<Lead> {
     const user = this.upsertUser(input.displayName, input.contact, input.contactType, input.marketingConsent, input.note);
     const lead: Lead = {
@@ -121,6 +125,7 @@ export class MemoryStore implements Store {
         paymentRequired: false,
         expiresAt: null,
         amountInr: session.priceInr,
+        confirmationCode: waitlistBooking.confirmationCode,
         message: "Session is currently full. You have been added to the waitlist."
       };
     }
@@ -150,6 +155,7 @@ export class MemoryStore implements Store {
         paymentRequired: false,
         expiresAt: null,
         amountInr: 0,
+        confirmationCode: booking.confirmationCode,
         message: "Your free session has been confirmed."
       };
     }
@@ -190,6 +196,7 @@ export class MemoryStore implements Store {
       paymentRequired: true,
       expiresAt,
       amountInr: session.priceInr,
+      confirmationCode: booking.confirmationCode,
       message: "Complete payment to confirm your seat."
     };
   }

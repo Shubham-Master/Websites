@@ -50,6 +50,9 @@ Copy `.env.example` to `.env` and adjust these values:
 - `BOOKING_HOLD_MINUTES`: how long to reserve paid seats before payment expires
 - `DATABASE_URL`: your Supabase direct Postgres connection string
 - `DATABASE_SSL`: set this to `true` for Supabase direct Postgres connections
+- `RESEND_API_KEY`: optional, enables booking confirmation emails
+- `EMAIL_FROM`: optional verified sender for outgoing confirmation emails
+- `EMAIL_REPLY_TO`: optional reply-to address for confirmation emails
 
 ## Frontend integration
 
@@ -82,8 +85,10 @@ Notes:
 - You still need to set `CORS_ORIGIN` to your Vercel frontend domain.
 - Run `npm run db:init` once with `DATABASE_URL` set to create the schema in Supabase and seed the starter sessions.
 - When `DATABASE_URL` is set, the backend uses PostgreSQL; otherwise it safely falls back to in-memory mode.
+- Free-session confirmation emails are sent only when `RESEND_API_KEY` and `EMAIL_FROM` are configured.
 
 ## Notes
 
 - Payment order creation is mocked for now, but the API shape is ready for Razorpay wiring.
 - Deploy restarts are now persistent once Supabase is connected. Without `DATABASE_URL`, restarts still reset in-memory data.
+- Free-session bookings still succeed even if email delivery is not configured or temporarily fails.

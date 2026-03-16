@@ -23,3 +23,9 @@ services:
         sync: false
       - key: DATABASE_SSL
         value: true
+      - key: RESEND_API_KEY
+        sync: false
+      - key: EMAIL_FROM
+        sync: false
+      - key: EMAIL_REPLY_TO
+        sync: false
