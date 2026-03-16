@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Frequently Asked Questions</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body class="page-shell">
+<nav>
+  <a class="logo" href="index.html">Un<span>mute</span></a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="how-it-works.html">How It Works</a></li>
+    <li><a href="sessions.html">Sessions</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a class="active" href="faq.html">FAQ</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal(event)">Join a Circle</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="about.html">About</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="sessions.html">Sessions</a>
+  <a href="pricing.html">Pricing</a>
+  <a class="active" href="faq.html">FAQ</a>
+  <a href="#" class="btn-primary" onclick="openModal(event); toggleMenu()">Join a Circle</a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero__wrap">
+    <div class="page-hero__main">
+      <div class="page-eyebrow">FAQ</div>
+      <h1 class="page-title">Questions people ask before trusting the room.</h1>
+      <p class="page-lede">A good FAQ should feel less like legal defense and more like emotional orientation. These are the questions we hear most often from first-timers and thoughtful repeat members.</p>
+      <div class="page-actions">
+        <a class="btn-primary" href="#" onclick="openModal(event)">Try the Free Intro Session</a>
+        <a class="btn-secondary" href="code-of-conduct.html">Read the Code of Conduct</a>
+      </div>
+    </div>
+    <aside class="page-hero__aside">
+      <h2 class="page-aside-title">Short version</h2>
+      <div class="signal-grid">
+        <div class="signal-card">
+          <strong>Yes</strong>
+          <p>You can come just to listen.</p>
+        </div>
+        <div class="signal-card">
+          <strong>No</strong>
+          <p>It is not therapy or crisis care.</p>
+        </div>
+        <div class="signal-card">
+          <strong>Usually</strong>
+          <p>Sessions run in English or Hinglish, with captions available.</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="page-section__wrap">
+    <div class="faq-list" style="max-width:900px;">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">What if I'm nervous and don't want to speak yet?</button>
+        <div class="faq-a">That's completely okay. Listening is a valid form of participation. Many people spend their first session simply feeling out the room.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">Are sessions recorded?</button>
+        <div class="faq-a">No. Our default policy is zero recording. We treat the room as private and temporary by design.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">Is this therapy?</button>
+        <div class="faq-a">No. Unmute is a facilitated storytelling and listening community, not a clinical service. If you need professional care, we encourage seeking qualified support.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">Can I join with captions or camera off?</button>
+        <div class="faq-a">Yes. Captions are available, and camera use is optional. The room is designed to reduce performance pressure.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">Do you support Hindi or regional languages?</button>
+        <div class="faq-a">We currently host circles in English and Hinglish, and we expand formats based on demand and facilitator readiness.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFAQ(this)">What happens after I book?</button>
+        <div class="faq-a">Your booking is saved immediately. For free sessions you should see an instant confirmation, and email confirmation is enabled when your booking uses an email address.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="page-section__wrap">
+    <div class="page-section__head">
+      <div>
+        <div class="section-tag">Still unsure?</div>
+        <h2>Three good entry points</h2>
+      </div>
+      <p>If you are hovering between curiosity and hesitation, one of these paths usually makes the decision easier.</p>
+    </div>
+    <div class="faq-category-grid">
+      <div class="faq-category">
+        <h3>Try the free intro</h3>
+        <p>If your real question is "What does the room feel like?", this is the cleanest way to answer it.</p>
+      </div>
+      <div class="faq-category">
+        <h3>Read the ground rules</h3>
+        <p>If you care about safety and boundaries first, the process page and code of conduct will help.</p>
+      </div>
+      <div class="faq-category">
+        <h3>Write to us directly</h3>
+        <p>If you have an accessibility request or a concern that does not fit a generic FAQ, ask directly.</p>
+      </div>
+    </div>
+    <div style="margin-top:2rem;">
+      <a class="btn-secondary" href="mailto:shubham46.56@gmail.com?subject=Question%20about%20Unmute">Email the team</a>
+    </div>
+  </div>
+</section>
+
+<section class="footer-cta">
+  <h2>Questions answered enough to take the first step?</h2>
+  <p>Then the free intro session is the right next move.</p>
+  <a href="#" class="btn-primary" onclick="openModal(event)">Reserve Your Spot →</a>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="logo" href="index.html">Un<span>mute</span></a>
+      <p>Private storytelling circles for modern life — curated small groups for real conversations, structured sharing, and confidential listening.</p>
+    </div>
+    <div class="footer-col">
+      <h4>EXPLORE</h4>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="sessions.html">Upcoming Sessions</a>
+      <a href="pricing.html">Membership</a>
+      <a href="about.html">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>CONNECT</h4>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20Instagram%20Link">Instagram</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20LinkedIn%20Link">LinkedIn</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20WhatsApp%20Community">WhatsApp Community</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Contact%20Unmute">Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Unmute. Built with care in India.</p>
+    <div class="footer-bottom-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="code-of-conduct.html">Code of Conduct</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Join a Circle</h2>
+      <button class="modal-close" type="button" aria-label="Close dialog" onclick="closeModal()">✕</button>
+    </div>
+    <p>Reserve your spot or attend the next free open session. We'll send you a confirmation and session link.</p>
+    <div class="form-group">
+      <label>Your Name (or Pseudonym)</label>
+      <input type="text" placeholder="e.g. Priya or 'Blue Jay'" id="f-name">
+    </div>
+    <div class="form-group">
+      <label>Email or WhatsApp Number</label>
+      <input type="text" placeholder="For your session link" id="f-contact">
+    </div>
+    <div class="form-group">
+      <label>Which Session Interests You?</label>
+      <select id="f-session">
+        <option value="">Connecting to live session schedule...</option>
+      </select>
+    </div>
+    <div class="topic-panel">
+      <div class="topic-panel-head">
+        <h3>Choose a Topic</h3>
+        <p>Pick one of this week's promoted topics, or suggest your own for team review.</p>
+      </div>
+      <div class="form-group">
+        <label for="f-topic">Promoted Topics This Week</label>
+        <select id="f-topic">
+          <option value="">Select a promoted topic</option>
+          <option value="Finding confidence in noisy spaces">Finding confidence in noisy spaces</option>
+          <option value="Asking for help without guilt">Asking for help without guilt</option>
+          <option value="Family conversations that feel safe">Family conversations that feel safe</option>
+          <option value="Rediscovering music and joy">Rediscovering music and joy</option>
+          <option value="Making peace with being misunderstood">Making peace with being misunderstood</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label for="f-custom-topic">Suggest Your Own Topic</label>
+        <textarea id="f-custom-topic" placeholder="Share a custom topic idea. Our team will review it before adding it to a future circle."></textarea>
+        <div class="field-help">Custom topics are reviewed manually by our team before they go live.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Anything you'd like us to know? (optional)</label>
+      <textarea id="f-note" placeholder="Accessibility needs, questions, anything at all..."></textarea>
+    </div>
+    <p id="form-status" style="font-size:0.9rem;color:var(--muted);margin:0 0 1rem;"></p>
+    <button class="btn-primary" id="f-submit" style="width:100%;border:none;font-size:1rem;padding:1rem;" onclick="submitForm()">Reserve My Spot →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">🎉 You're in! Check your inbox for the session link.</div>
+
+<script src="app-config.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

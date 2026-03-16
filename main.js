@@ -514,7 +514,9 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 function applyRevealAnimations() {
-  document.querySelectorAll('.pain-card, .step, .session-card, .testimonial, .access-feat, .pricing-card').forEach((element) => {
+  document.querySelectorAll(
+    '.pain-card, .step, .session-card, .testimonial, .access-feat, .pricing-card, .destination-card, .timeline-item, .signal-card, .story-card, .feature-card, .value-card, .rule-card, .faq-category, .legal-card, .format-card, .membership-band'
+  ).forEach((element) => {
     element.style.opacity = '0';
     element.style.transform = 'translateY(24px)';
     element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';

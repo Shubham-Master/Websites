@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Code of Conduct</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body class="page-shell">
+<nav>
+  <a class="logo" href="index.html">Un<span>mute</span></a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="how-it-works.html">How It Works</a></li>
+    <li><a href="sessions.html">Sessions</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal(event)">Join a Circle</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="about.html">About</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="sessions.html">Sessions</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="faq.html">FAQ</a>
+  <a href="#" class="btn-primary" onclick="openModal(event); toggleMenu()">Join a Circle</a>
+</div>
+
+<section class="page-hero legal-hero">
+  <div class="page-hero__wrap">
+    <div class="page-hero__main">
+      <div class="page-eyebrow">Community Standards</div>
+      <h1 class="page-title">Code of Conduct</h1>
+      <p class="page-lede">Unmute works only when people treat each other with patience, consent, and care. This page sets the baseline for what protects the room.</p>
+    </div>
+    <aside class="page-hero__aside">
+      <h2 class="page-aside-title">Core idea</h2>
+      <p class="page-aside-copy">Safety is not just about stopping the worst behavior. It is also about shaping the kind of room where smaller harms do not quietly accumulate.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="page-section" style="padding-top:0;">
+  <div class="legal-wrap">
+    <aside class="legal-nav">
+      <h2>On this page</h2>
+      <a href="#respect">Respect</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#boundaries">Boundaries</a>
+      <a href="#harm">Harmful behavior</a>
+      <a href="#response">How we respond</a>
+    </aside>
+    <div class="legal-grid">
+      <article class="legal-card" id="respect">
+        <h3>Respect the speaker</h3>
+        <p>Let people finish. Do not interrupt, ridicule, interrogate, or compete with someone else's story.</p>
+      </article>
+      <article class="legal-card" id="privacy">
+        <h3>Respect the room</h3>
+        <p>What is shared in the room should stay there unless the speaker explicitly asks otherwise. Recording or redistributing personal stories breaks trust.</p>
+      </article>
+      <article class="legal-card" id="boundaries">
+        <h3>Respect boundaries</h3>
+        <p>No one owes disclosure, camera use, explanation, or emotional labor. Consent matters in how you ask questions and how closely you move toward someone else's experience.</p>
+      </article>
+      <article class="legal-card" id="harm">
+        <h3>Harmful behavior is not tolerated</h3>
+        <ul>
+          <li>Harassment, intimidation, or repeated boundary-pushing</li>
+          <li>Discrimination or demeaning language</li>
+          <li>Advice-giving that overrides the room's format after being redirected</li>
+          <li>Attempts to expose or identify members who wish to remain private</li>
+        </ul>
+      </article>
+      <article class="legal-card" id="response">
+        <h3>How we respond</h3>
+        <p>Facilitators and organizers may pause, redirect, remove, or ban participants whose behavior threatens the integrity or safety of the room.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="logo" href="index.html">Un<span>mute</span></a>
+      <p>Private storytelling circles for modern life — curated small groups for real conversations, structured sharing, and confidential listening.</p>
+    </div>
+    <div class="footer-col">
+      <h4>EXPLORE</h4>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="sessions.html">Upcoming Sessions</a>
+      <a href="pricing.html">Membership</a>
+      <a href="about.html">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>CONNECT</h4>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20Instagram%20Link">Instagram</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20LinkedIn%20Link">LinkedIn</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20WhatsApp%20Community">WhatsApp Community</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Contact%20Unmute">Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Unmute. Built with care in India.</p>
+    <div class="footer-bottom-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="code-of-conduct.html">Code of Conduct</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Join a Circle</h2>
+      <button class="modal-close" type="button" aria-label="Close dialog" onclick="closeModal()">✕</button>
+    </div>
+    <p>Reserve your spot or attend the next free open session. We'll send you a confirmation and session link.</p>
+    <div class="form-group">
+      <label>Your Name (or Pseudonym)</label>
+      <input type="text" placeholder="e.g. Priya or 'Blue Jay'" id="f-name">
+    </div>
+    <div class="form-group">
+      <label>Email or WhatsApp Number</label>
+      <input type="text" placeholder="For your session link" id="f-contact">
+    </div>
+    <div class="form-group">
+      <label>Which Session Interests You?</label>
+      <select id="f-session">
+        <option value="">Connecting to live session schedule...</option>
+      </select>
+    </div>
+    <div class="topic-panel">
+      <div class="topic-panel-head">
+        <h3>Choose a Topic</h3>
+        <p>Pick one of this week's promoted topics, or suggest your own for team review.</p>
+      </div>
+      <div class="form-group">
+        <label for="f-topic">Promoted Topics This Week</label>
+        <select id="f-topic">
+          <option value="">Select a promoted topic</option>
+          <option value="Finding confidence in noisy spaces">Finding confidence in noisy spaces</option>
+          <option value="Asking for help without guilt">Asking for help without guilt</option>
+          <option value="Family conversations that feel safe">Family conversations that feel safe</option>
+          <option value="Rediscovering music and joy">Rediscovering music and joy</option>
+          <option value="Making peace with being misunderstood">Making peace with being misunderstood</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label for="f-custom-topic">Suggest Your Own Topic</label>
+        <textarea id="f-custom-topic" placeholder="Share a custom topic idea. Our team will review it before adding it to a future circle."></textarea>
+        <div class="field-help">Custom topics are reviewed manually by our team before they go live.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Anything you'd like us to know? (optional)</label>
+      <textarea id="f-note" placeholder="Accessibility needs, questions, anything at all..."></textarea>
+    </div>
+    <p id="form-status" style="font-size:0.9rem;color:var(--muted);margin:0 0 1rem;"></p>
+    <button class="btn-primary" id="f-submit" style="width:100%;border:none;font-size:1rem;padding:1rem;" onclick="submitForm()">Reserve My Spot →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">🎉 You're in! Check your inbox for the session link.</div>
+
+<script src="app-config.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

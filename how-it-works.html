@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Unmute Works</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body class="page-shell page-shell--contrast">
+<nav>
+  <a class="logo" href="index.html">Un<span>mute</span></a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a class="active" href="how-it-works.html">How It Works</a></li>
+    <li><a href="sessions.html">Sessions</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal(event)">Join a Circle</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="about.html">About</a>
+  <a class="active" href="how-it-works.html">How It Works</a>
+  <a href="sessions.html">Sessions</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="faq.html">FAQ</a>
+  <a href="#" class="btn-primary" onclick="openModal(event); toggleMenu()">Join a Circle</a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero__wrap">
+    <div class="page-hero__main">
+      <div class="page-eyebrow">The Format</div>
+      <h1 class="page-title">A session is designed to feel calm, guided, and surprisingly spacious.</h1>
+      <p class="page-lede">We do not leave meaningful conversation to chance. Every Unmute circle has a flow, a facilitator, and a shared set of expectations that make the room easier to trust.</p>
+      <div class="page-actions">
+        <a class="btn-primary" href="#" onclick="openModal(event)">Join the Free Intro Circle</a>
+        <a class="btn-secondary" href="faq.html">Read the FAQ</a>
+      </div>
+    </div>
+    <aside class="page-hero__aside">
+      <h2 class="page-aside-title">What the structure protects</h2>
+      <div class="signal-grid">
+        <div class="signal-card">
+          <strong>Attention</strong>
+          <p>One-speaker flow reduces cross-talk and makes stories easier to follow.</p>
+        </div>
+        <div class="signal-card">
+          <strong>Safety</strong>
+          <p>Facilitators slow the room down before things become chaotic or performative.</p>
+        </div>
+        <div class="signal-card">
+          <strong>Dignity</strong>
+          <p>You can listen quietly, share softly, or use a pseudonym without being treated as "less involved."</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="page-section__wrap">
+    <div class="page-section__head">
+      <div>
+        <div class="section-tag">Session Flow</div>
+        <h2>What happens from the moment you enter</h2>
+      </div>
+      <p>The flow is simple enough to feel natural but structured enough that people do not have to guess how the space works.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <strong>01</strong>
+        <div>
+          <h3>Arrival and orientation</h3>
+          <p>You join a small room, hear the ground rules, and settle in without having to make instant conversation.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <strong>02</strong>
+        <div>
+          <h3>Prompt and framing</h3>
+          <p>The facilitator introduces the theme and offers just enough framing to help people locate their own story.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <strong>03</strong>
+        <div>
+          <h3>Sharing rounds</h3>
+          <p>People share in turn. Listening is active, interruptions are limited, and camera use is optional.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <strong>04</strong>
+        <div>
+          <h3>Reflection, not fixing</h3>
+          <p>The room responds with empathy and reflection rather than instant advice or debate.</p>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <strong>05</strong>
+        <div>
+          <h3>Gentle close</h3>
+          <p>The session ends with enough softness that people leave grounded instead of emotionally dropped.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="page-section__wrap">
+    <div class="page-section__head">
+      <div>
+        <div class="section-tag">Ground Rules</div>
+        <h2>The room works because everyone knows the edges</h2>
+      </div>
+      <p>These are not "nice to have" community ideas. They are operating principles that keep the circle from turning into noise.</p>
+    </div>
+    <div class="story-grid">
+      <div class="rule-card">
+        <h3>No interrupting</h3>
+        <p>Stories deserve full attention. One person speaks at a time and facilitators protect that rhythm.</p>
+      </div>
+      <div class="rule-card">
+        <h3>No forced sharing</h3>
+        <p>Listening counts. Presence counts. No one is pushed to disclose more than feels right.</p>
+      </div>
+      <div class="rule-card">
+        <h3>No advice unless invited</h3>
+        <p>Reflection is welcome. Solving, diagnosing, and redirecting someone else's story is not the default.</p>
+      </div>
+      <div class="rule-card">
+        <h3>No recordings</h3>
+        <p>We treat the room as temporary and private. The story belongs to the moment unless explicit policy changes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="page-section__wrap">
+    <div class="page-section__head">
+      <div>
+        <div class="section-tag">Clarity Stack</div>
+        <h2>How we make conversation easier to follow</h2>
+      </div>
+      <p>Unmute is not built around a single condition. It is built around the broader truth that many people understand better when the room is paced with more care.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>Live captions</h3>
+        <p>Optional real-time captions make the room more legible for anyone who benefits from reading as they listen.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Facilitated pacing</h3>
+        <p>Good pacing is a design choice. We reduce overlap, rush, and performative urgency.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Camera optional</h3>
+        <p>You do not have to be visually "on" to belong. Presence is more important than performance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="footer-cta">
+  <h2>Ready to feel the format in real life?</h2>
+  <p>The free intro session is the easiest way to understand what makes the room feel different.</p>
+  <a href="#" class="btn-primary" onclick="openModal(event)">Book Your Free Intro Session →</a>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="logo" href="index.html">Un<span>mute</span></a>
+      <p>Private storytelling circles for modern life — curated small groups for real conversations, structured sharing, and confidential listening.</p>
+    </div>
+    <div class="footer-col">
+      <h4>EXPLORE</h4>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="sessions.html">Upcoming Sessions</a>
+      <a href="pricing.html">Membership</a>
+      <a href="about.html">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>CONNECT</h4>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20Instagram%20Link">Instagram</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20LinkedIn%20Link">LinkedIn</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20WhatsApp%20Community">WhatsApp Community</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Contact%20Unmute">Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Unmute. Built with care in India.</p>
+    <div class="footer-bottom-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="code-of-conduct.html">Code of Conduct</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Join a Circle</h2>
+      <button class="modal-close" type="button" aria-label="Close dialog" onclick="closeModal()">✕</button>
+    </div>
+    <p>Reserve your spot or attend the next free open session. We'll send you a confirmation and session link.</p>
+    <div class="form-group">
+      <label>Your Name (or Pseudonym)</label>
+      <input type="text" placeholder="e.g. Priya or 'Blue Jay'" id="f-name">
+    </div>
+    <div class="form-group">
+      <label>Email or WhatsApp Number</label>
+      <input type="text" placeholder="For your session link" id="f-contact">
+    </div>
+    <div class="form-group">
+      <label>Which Session Interests You?</label>
+      <select id="f-session">
+        <option value="">Connecting to live session schedule...</option>
+      </select>
+    </div>
+    <div class="topic-panel">
+      <div class="topic-panel-head">
+        <h3>Choose a Topic</h3>
+        <p>Pick one of this week's promoted topics, or suggest your own for team review.</p>
+      </div>
+      <div class="form-group">
+        <label for="f-topic">Promoted Topics This Week</label>
+        <select id="f-topic">
+          <option value="">Select a promoted topic</option>
+          <option value="Finding confidence in noisy spaces">Finding confidence in noisy spaces</option>
+          <option value="Asking for help without guilt">Asking for help without guilt</option>
+          <option value="Family conversations that feel safe">Family conversations that feel safe</option>
+          <option value="Rediscovering music and joy">Rediscovering music and joy</option>
+          <option value="Making peace with being misunderstood">Making peace with being misunderstood</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label for="f-custom-topic">Suggest Your Own Topic</label>
+        <textarea id="f-custom-topic" placeholder="Share a custom topic idea. Our team will review it before adding it to a future circle."></textarea>
+        <div class="field-help">Custom topics are reviewed manually by our team before they go live.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Anything you'd like us to know? (optional)</label>
+      <textarea id="f-note" placeholder="Accessibility needs, questions, anything at all..."></textarea>
+    </div>
+    <p id="form-status" style="font-size:0.9rem;color:var(--muted);margin:0 0 1rem;"></p>
+    <button class="btn-primary" id="f-submit" style="width:100%;border:none;font-size:1rem;padding:1rem;" onclick="submitForm()">Reserve My Spot →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">🎉 You're in! Check your inbox for the session link.</div>
+
+<script src="app-config.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

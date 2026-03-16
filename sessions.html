@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upcoming Sessions</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body class="page-shell">
+<nav>
+  <a class="logo" href="index.html">Un<span>mute</span></a>
+  <ul class="nav-links">
+    <li><a href="about.html">About</a></li>
+    <li><a href="how-it-works.html">How It Works</a></li>
+    <li><a class="active" href="sessions.html">Sessions</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal(event)">Join a Circle</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="about.html">About</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a class="active" href="sessions.html">Sessions</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="faq.html">FAQ</a>
+  <a href="#" class="btn-primary" onclick="openModal(event); toggleMenu()">Join a Circle</a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero__wrap">
+    <div class="page-hero__main">
+      <div class="page-eyebrow">Upcoming Circles</div>
+      <h1 class="page-title">This is where live availability meets a calmer booking experience.</h1>
+      <p class="page-lede">Browse the current circles, pick what resonates, and reserve a spot without having to dig through a long landing page. This schedule is powered by the live backend.</p>
+      <div class="page-actions">
+        <a class="btn-primary" href="#" onclick="openModal(event)">Book the Free Intro Session</a>
+        <a class="btn-secondary" href="pricing.html">Compare Plans</a>
+      </div>
+    </div>
+    <aside class="page-hero__aside">
+      <h2 class="page-aside-title">How the formats work</h2>
+      <div class="signal-grid">
+        <div class="signal-card">
+          <strong>Free intro</strong>
+          <p>A softer first visit for people who want to get a feel for the room before committing.</p>
+        </div>
+        <div class="signal-card">
+          <strong>Drop-in circle</strong>
+          <p>Single themed sessions for people who want a specific prompt and a smaller curated group.</p>
+        </div>
+        <div class="signal-card">
+          <strong>Membership</strong>
+          <p>Best for repeat participation and people who want the room to become part of their regular rhythm.</p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="page-section__wrap">
+    <div class="page-section__head">
+      <div>
+        <div class="section-tag">Live Schedule</div>
+        <h2>Choose a circle that matches your current season</h2>
+      </div>
+      <p>The cards below are loaded from the live booking backend, so availability and free-session access stay current.</p>
+    </div>
+    <div class="sessions-stage">
+      <div class="sessions-grid sessions-grid--status" id="sessionsGrid">
+        <div class="sessions-state" data-variant="loading">
+          <h3>Loading live session schedule</h3>
+          <p>We are fetching current circles from the booking backend.</p>
+        </div>
+      </div>
+      <aside class="sessions-callout">
+        <h3>Before you book</h3>
+        <p>Every room is deliberately small. If a circle is full, we keep the waitlist open so we can release seats responsibly.</p>
+        <ul>
+          <li>Captions are available.</li>
+          <li>Camera use is optional.</li>
+          <li>Sharing is invited, not forced.</li>
+          <li>Free intro access is best for first-timers.</li>
+        </ul>
+      </aside>
+    </div>
+    <div style="text-align:center;margin-top:2rem;">
+      <a href="#" class="btn-secondary" onclick="openModal(event)">Request a Custom Topic →</a>
+    </div>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="page-section__wrap">
+    <div class="page-section__head">
+      <div>
+        <div class="section-tag">What to Expect</div>
+        <h2>The room is quiet in the best possible way</h2>
+      </div>
+      <p>Booking a spot is just the start. The bigger value is what the session feels like once the room begins to breathe together.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>Theme-led prompts</h3>
+        <p>Every session has enough thematic shape that you never walk into a completely blank room.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Clarity-first facilitation</h3>
+        <p>The facilitator protects pace, transitions, and emotional boundaries instead of leaving the mood to chance.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Soft exits too</h3>
+        <p>Good circles do not just open well. They close well, so people leave steadier than they arrived.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="footer-cta">
+  <h2>Your first good conversation might just be one click away.</h2>
+  <p>Try the free intro session if you want to experience the room before making Unmute part of your routine.</p>
+  <a href="#" class="btn-primary" onclick="openModal(event)">Reserve Your Spot →</a>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="logo" href="index.html">Un<span>mute</span></a>
+      <p>Private storytelling circles for modern life — curated small groups for real conversations, structured sharing, and confidential listening.</p>
+    </div>
+    <div class="footer-col">
+      <h4>EXPLORE</h4>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="sessions.html">Upcoming Sessions</a>
+      <a href="pricing.html">Membership</a>
+      <a href="about.html">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>CONNECT</h4>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20Instagram%20Link">Instagram</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20LinkedIn%20Link">LinkedIn</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20WhatsApp%20Community">WhatsApp Community</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Contact%20Unmute">Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Unmute. Built with care in India.</p>
+    <div class="footer-bottom-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="code-of-conduct.html">Code of Conduct</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Join a Circle</h2>
+      <button class="modal-close" type="button" aria-label="Close dialog" onclick="closeModal()">✕</button>
+    </div>
+    <p>Reserve your spot or attend the next free open session. We'll send you a confirmation and session link.</p>
+    <div class="form-group">
+      <label>Your Name (or Pseudonym)</label>
+      <input type="text" placeholder="e.g. Priya or 'Blue Jay'" id="f-name">
+    </div>
+    <div class="form-group">
+      <label>Email or WhatsApp Number</label>
+      <input type="text" placeholder="For your session link" id="f-contact">
+    </div>
+    <div class="form-group">
+      <label>Which Session Interests You?</label>
+      <select id="f-session">
+        <option value="">Connecting to live session schedule...</option>
+      </select>
+    </div>
+    <div class="topic-panel">
+      <div class="topic-panel-head">
+        <h3>Choose a Topic</h3>
+        <p>Pick one of this week's promoted topics, or suggest your own for team review.</p>
+      </div>
+      <div class="form-group">
+        <label for="f-topic">Promoted Topics This Week</label>
+        <select id="f-topic">
+          <option value="">Select a promoted topic</option>
+          <option value="Finding confidence in noisy spaces">Finding confidence in noisy spaces</option>
+          <option value="Asking for help without guilt">Asking for help without guilt</option>
+          <option value="Family conversations that feel safe">Family conversations that feel safe</option>
+          <option value="Rediscovering music and joy">Rediscovering music and joy</option>
+          <option value="Making peace with being misunderstood">Making peace with being misunderstood</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label for="f-custom-topic">Suggest Your Own Topic</label>
+        <textarea id="f-custom-topic" placeholder="Share a custom topic idea. Our team will review it before adding it to a future circle."></textarea>
+        <div class="field-help">Custom topics are reviewed manually by our team before they go live.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Anything you'd like us to know? (optional)</label>
+      <textarea id="f-note" placeholder="Accessibility needs, questions, anything at all..."></textarea>
+    </div>
+    <p id="form-status" style="font-size:0.9rem;color:var(--muted);margin:0 0 1rem;"></p>
+    <button class="btn-primary" id="f-submit" style="width:100%;border:none;font-size:1rem;padding:1rem;" onclick="submitForm()">Reserve My Spot →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">🎉 You're in! Check your inbox for the session link.</div>
+
+<script src="app-config.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

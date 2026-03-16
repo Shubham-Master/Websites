@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About Unmute</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="main.css">
+<link rel="stylesheet" href="pages.css">
+</head>
+<body class="page-shell">
+<nav>
+  <a class="logo" href="index.html">Un<span>mute</span></a>
+  <ul class="nav-links">
+    <li><a class="active" href="about.html">About</a></li>
+    <li><a href="how-it-works.html">How It Works</a></li>
+    <li><a href="sessions.html">Sessions</a></li>
+    <li><a href="pricing.html">Pricing</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="#" class="nav-cta" onclick="openModal(event)">Join a Circle</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a class="active" href="about.html">About</a>
+  <a href="how-it-works.html">How It Works</a>
+  <a href="sessions.html">Sessions</a>
+  <a href="pricing.html">Pricing</a>
+  <a href="faq.html">FAQ</a>
+  <a href="#" class="btn-primary" onclick="openModal(event); toggleMenu()">Join a Circle</a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero__wrap">
+    <div class="page-hero__main">
+      <div class="page-eyebrow">About Unmute</div>
+      <h1 class="page-title">We build rooms where stories land softly and honestly.</h1>
+      <p class="page-lede">Unmute began with a simple idea: many people are not short on stories, they are short on spaces that can hold those stories with enough patience, warmth, and structure. We design those spaces on purpose.</p>
+      <div class="page-actions">
+        <a class="btn-primary" href="#" onclick="openModal(event)">Join a Free Circle</a>
+        <a class="btn-secondary" href="how-it-works.html">See the Format</a>
+      </div>
+      <div class="page-metric-list">
+        <div class="page-metric">
+          <strong>5–7</strong>
+          <span>People in a circle so the room stays intimate.</span>
+        </div>
+        <div class="page-metric">
+          <strong>Zero</strong>
+          <span>Pressure to perform, explain, or share before you're ready.</span>
+        </div>
+        <div class="page-metric">
+          <strong>100%</strong>
+          <span>Designed around clarity, pacing, and respectful listening.</span>
+        </div>
+      </div>
+    </div>
+    <aside class="page-hero__aside">
+      <h2 class="page-aside-title">Why it exists</h2>
+      <p class="page-aside-copy">Modern spaces often reward speed, noise, and instant reactions. Unmute is the opposite: slower, warmer, and guided enough that a meaningful conversation can actually unfold.</p>
+      <div class="quote-card">
+        <blockquote>"Silence should be a choice, never a consequence."</blockquote>
+        <cite>Unmute founder note</cite>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="page-section__wrap">
+    <div class="page-section__head">
+      <div>
+        <div class="section-tag">What We Protect</div>
+        <h2>Our values are less like slogans and more like room settings.</h2>
+      </div>
+      <p>Everything about Unmute is designed to shape the feeling of the room: who gets invited, how people speak, how facilitators hold pace, and what happens when someone needs more care.</p>
+    </div>
+    <div class="values-grid">
+      <div class="value-card">
+        <h3>Empathy First</h3>
+        <p>We reflect before we react. The goal is not to fix someone on the spot, but to let them feel heard in full.</p>
+      </div>
+      <div class="value-card">
+        <h3>Structured, Not Stiff</h3>
+        <p>We use gentle facilitation, clear prompts, and turn-taking so the circle feels safe without becoming scripted.</p>
+      </div>
+      <div class="value-card">
+        <h3>Privacy by Default</h3>
+        <p>No recordings, limited data, and careful boundaries around what belongs in the room and what does not.</p>
+      </div>
+      <div class="value-card">
+        <h3>Access Matters</h3>
+        <p>Captions, slower pacing, optional camera use, and one-speaker flow are not extras. They are part of the design.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="page-section__wrap">
+    <div class="page-section__head">
+      <div>
+        <div class="section-tag">Inside Unmute</div>
+        <h2>What makes our circles feel different</h2>
+      </div>
+      <p>We focus less on scale and more on atmosphere. That means careful curation, clear expectations, and enough warmth that people do not have to fight for the room.</p>
+    </div>
+    <div class="story-grid">
+      <div class="story-card">
+        <h3>Curated over crowded</h3>
+        <p>We keep circles intentionally small so listeners can stay present and every story has time to land without competing for attention.</p>
+      </div>
+      <div class="story-card">
+        <h3>Facilitated over chaotic</h3>
+        <p>There is a person holding rhythm, boundaries, and transitions. That changes the emotional temperature of the whole experience.</p>
+      </div>
+      <div class="story-card">
+        <h3>Reflective over performative</h3>
+        <p>We are not building a stage for polished self-expression. We are building a place where unfinished thoughts can still belong.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="page-section">
+  <div class="page-section__wrap">
+    <div class="page-section__head">
+      <div>
+        <div class="section-tag">Founder Lens</div>
+        <h2>Built for deeper listening, not louder participation</h2>
+      </div>
+      <p>Unmute is not a therapy product and not a social feed. It sits somewhere else: a carefully moderated human environment for honesty, reflection, and connection.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-card-main">
+          <img src="src/images/about-founder.jpg" alt="Founder portrait" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:24px;z-index:0;" onerror="this.style.display='none'">
+          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:beige;position:relative;z-index:1;">"We don't need more content. We need better containers for truth."</div>
+        </div>
+        <div class="about-float">
+          <div class="about-float-num">Small</div>
+          <div class="about-float-label">By design, not by accident</div>
+        </div>
+      </div>
+      <div class="about-text">
+        <p>Every session is designed so the story remains central: clear pacing, no interruptions, and enough stillness that people do not have to oversell their emotions to be taken seriously.</p>
+        <p>That also means careful boundaries. Unmute is not a substitute for therapy, crisis support, or clinical care. It is a community format with strong facilitation and thoughtful limits.</p>
+        <div class="about-values">
+          <span class="value-tag">Curated circles</span>
+          <span class="value-tag">No recordings</span>
+          <span class="value-tag">Caption-friendly</span>
+          <span class="value-tag">Pseudonyms welcome</span>
+          <span class="value-tag">Calm facilitation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="footer-cta">
+  <h2>Want to feel the room for yourself?</h2>
+  <p>Start with the free intro circle and see how different a well-held conversation can feel.</p>
+  <a href="#" class="btn-primary" onclick="openModal(event)">Book Your Free Intro Session →</a>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a class="logo" href="index.html">Un<span>mute</span></a>
+      <p>Private storytelling circles for modern life — curated small groups for real conversations, structured sharing, and confidential listening.</p>
+    </div>
+    <div class="footer-col">
+      <h4>EXPLORE</h4>
+      <a href="how-it-works.html">How It Works</a>
+      <a href="sessions.html">Upcoming Sessions</a>
+      <a href="pricing.html">Membership</a>
+      <a href="about.html">About Us</a>
+    </div>
+    <div class="footer-col">
+      <h4>CONNECT</h4>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20Instagram%20Link">Instagram</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20LinkedIn%20Link">LinkedIn</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Unmute%20WhatsApp%20Community">WhatsApp Community</a>
+      <a href="mailto:shubham46.56@gmail.com?subject=Contact%20Unmute">Contact Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Unmute. Built with care in India.</p>
+    <div class="footer-bottom-links">
+      <a href="privacy-policy.html">Privacy Policy</a>
+      <a href="terms.html">Terms</a>
+      <a href="code-of-conduct.html">Code of Conduct</a>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modal" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <div class="modal-header">
+      <h2>Join a Circle</h2>
+      <button class="modal-close" type="button" aria-label="Close dialog" onclick="closeModal()">✕</button>
+    </div>
+    <p>Reserve your spot or attend the next free open session. We'll send you a confirmation and session link.</p>
+    <div class="form-group">
+      <label>Your Name (or Pseudonym)</label>
+      <input type="text" placeholder="e.g. Priya or 'Blue Jay'" id="f-name">
+    </div>
+    <div class="form-group">
+      <label>Email or WhatsApp Number</label>
+      <input type="text" placeholder="For your session link" id="f-contact">
+    </div>
+    <div class="form-group">
+      <label>Which Session Interests You?</label>
+      <select id="f-session">
+        <option value="">Connecting to live session schedule...</option>
+      </select>
+    </div>
+    <div class="topic-panel">
+      <div class="topic-panel-head">
+        <h3>Choose a Topic</h3>
+        <p>Pick one of this week's promoted topics, or suggest your own for team review.</p>
+      </div>
+      <div class="form-group">
+        <label for="f-topic">Promoted Topics This Week</label>
+        <select id="f-topic">
+          <option value="">Select a promoted topic</option>
+          <option value="Finding confidence in noisy spaces">Finding confidence in noisy spaces</option>
+          <option value="Asking for help without guilt">Asking for help without guilt</option>
+          <option value="Family conversations that feel safe">Family conversations that feel safe</option>
+          <option value="Rediscovering music and joy">Rediscovering music and joy</option>
+          <option value="Making peace with being misunderstood">Making peace with being misunderstood</option>
+        </select>
+      </div>
+      <div class="form-group" style="margin-bottom:0;">
+        <label for="f-custom-topic">Suggest Your Own Topic</label>
+        <textarea id="f-custom-topic" placeholder="Share a custom topic idea. Our team will review it before adding it to a future circle."></textarea>
+        <div class="field-help">Custom topics are reviewed manually by our team before they go live.</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Anything you'd like us to know? (optional)</label>
+      <textarea id="f-note" placeholder="Accessibility needs, questions, anything at all..."></textarea>
+    </div>
+    <p id="form-status" style="font-size:0.9rem;color:var(--muted);margin:0 0 1rem;"></p>
+    <button class="btn-primary" id="f-submit" style="width:100%;border:none;font-size:1rem;padding:1rem;" onclick="submitForm()">Reserve My Spot →</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">🎉 You're in! Check your inbox for the session link.</div>
+
+<script src="app-config.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
