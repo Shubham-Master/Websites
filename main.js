@@ -515,7 +515,7 @@ const observer = new IntersectionObserver((entries) => {
 
 function applyRevealAnimations() {
   document.querySelectorAll(
-    '.pain-card, .step, .session-card, .testimonial, .access-feat, .pricing-card, .destination-card, .timeline-item, .signal-card, .story-card, .feature-card, .value-card, .rule-card, .faq-category, .legal-card, .format-card, .membership-band'
+    '.pain-card, .step, .session-card, .testimonial, .access-feat, .pricing-card, .destination-card, .timeline-item, .signal-card, .story-card, .feature-card, .value-card, .rule-card, .faq-category, .legal-card, .format-card, .membership-band, .manifesto-line, .home-step, .access-item, .wide-editorial-media, .editorial-founder-card, .page-portrait-callout, .page-wide-media, .page-hero-banner, .guided-step, .page-interruption__media, .rule-line, .clarity-item, .faq-signal-card, .faq-support-visual'
   ).forEach((element) => {
     element.style.opacity = '0';
     element.style.transform = 'translateY(24px)';
