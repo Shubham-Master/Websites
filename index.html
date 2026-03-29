@@ -36,341 +36,194 @@
 </div>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero hero--editorial">
   <div class="hero-bg"></div>
-  <div class="hero-rings">
-    <div class="ring"></div>
-    <div class="ring"></div>
-    <div class="ring"></div>
-    <div class="ring"></div>
-  </div>
-  <div class="hero-content">
-    <div class="hero-tag">Private, Curated Storytelling Circles</div>
-    <h1>Your Story Deserves an Audience That <em>Truly Listens</em></h1>
-    <p>A private storytelling circle for modern life — small, curated groups where people share real stories, listen without judgment, and leave feeling lighter. Structured sharing, clear conversation, and a warm, confidential space to be seen.</p>
-    <div class="hero-actions">
-      <a href="#" class="btn-primary" onclick="openModal(event)">Join Your First Circle — Free</a>
-      <a href="/how-it-works" class="btn-secondary">See How It Works</a>
+  <div class="hero-shell">
+    <div class="hero-content">
+      <div class="hero-tag">Private, Curated Storytelling Circles</div>
+      <h1>Stop speaking into rooms that only know how to <em>react.</em></h1>
+      <p class="hero-lede">Unmute hosts small, guided storytelling circles for people who want something slower, warmer, and more honest than the usual social surface. Structured sharing, careful listening, and a room that knows how to hold a real story.</p>
+      <div class="hero-actions">
+        <a href="#" class="btn-primary" onclick="openModal(event)">Join Your First Circle — Free</a>
+        <a href="/how-it-works" class="btn-secondary hero-link">See How It Works</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">200+</div>
+          <div class="stat-label">Members choosing smaller rooms over louder ones.</div>
+        </div>
+        <div>
+          <div class="stat-num">40+</div>
+          <div class="stat-label">Circles hosted with guided pacing and no recordings.</div>
+        </div>
+        <div>
+          <div class="stat-num">Live</div>
+          <div class="stat-label">Captions available when clarity needs more than audio alone.</div>
+        </div>
+      </div>
     </div>
-    <div class="hero-stats">
+    <figure class="hero-portrait">
+      <img
+        src="src/images/optimized/girl-smiling-hero.jpg"
+        alt="A smiling Unmute member joining a circle from her laptop"
+        width="1200"
+        height="2005"
+        decoding="async"
+        fetchpriority="high"
+      >
+      <figcaption>Quiet enough for unfinished thoughts.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="manifesto-section" id="about">
+  <div class="manifesto-shell">
+    <div class="manifesto-head">
       <div>
-        <div class="stat-num">200+</div>
-        <div class="stat-label">Members & Growing</div>
+        <div class="section-tag">We Understand</div>
+        <h2 class="section-title">Surface conversations leave you wanting more.</h2>
       </div>
-      <div>
-        <div class="stat-num">40+</div>
-        <div class="stat-label">Circles Hosted</div>
-      </div>
-      <div>
-        <div class="stat-num">Live</div>
-        <div class="stat-label">Real-Time Captions</div>
-      </div>
+      <p class="section-sub">Modern life often trades depth for small talk. We built Unmute to make room for honest stories, deliberate listening, and real human connection.</p>
+    </div>
+    <div class="manifesto-lines">
+      <article class="manifesto-line">
+        <span>01</span>
+        <div>
+          <h3>Surface connections</h3>
+          <p>Feeling drained by superficial small talk and endless social performance is more common than most people admit. Many of us are craving conversations that actually land.</p>
+        </div>
+      </article>
+      <article class="manifesto-line">
+        <span>02</span>
+        <div>
+          <h3>Emotional masking</h3>
+          <p>Hiding parts of yourself so interactions feel easier can be exhausting. It leaves important stories unopened and relationships flatter than they need to be.</p>
+        </div>
+      </article>
+      <article class="manifesto-line">
+        <span>03</span>
+        <div>
+          <h3>Yearning for depth</h3>
+          <p>You want to be heard without explanation or performance. We host a room where your story matters on its own terms, and where listening is treated like care instead of background noise.</p>
+        </div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- PAIN POINTS -->
-<section class="pain-section" id="about">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-tag">We Understand</div>
-    <h2 class="section-title">Surface Conversations Leave You Wanting More</h2>
-    <p class="section-sub">Modern life often trades depth for small talk. We built Unmute to make room for honest stories, deliberate listening, and real human connection.</p>
-    <div class="pain-grid">
-      <div class="pain-card">
-        <div class="pain-icon">🎭</div>
-        <h3>Surface Connections</h3>
-        <p>Feeling drained by superficial small talk and endless social performance? Many of us long for conversations that actually land.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-icon">🪞</div>
-        <h3>Emotional Masking</h3>
-        <p>Hiding parts of yourself so interactions feel easier can be exhausting. It leaves important stories unopened and relationships shallow.</p>
-      </div>
-      <div class="pain-card">
-        <div class="pain-icon">🌊</div>
-        <h3>Yearning for Depth</h3>
-        <p>You want to be heard without explanation or performance — a space where your story matters on its own terms. That's what we host.</p>
-      </div>
+<section class="home-sequence" id="how">
+  <div class="home-sequence__wrap">
+    <div class="home-sequence__intro">
+      <div class="section-tag">The Format</div>
+      <h2 class="section-title">A circle has a rhythm, not a script.</h2>
+      <p class="section-sub">Every session is structured enough to feel safe and open enough to feel human. The point is not perfect sharing. The point is that the room can actually hold it.</p>
+      <a href="/how-it-works" class="section-link">Read the full format</a>
+    </div>
+    <div class="home-sequence__list">
+      <article class="home-step">
+        <span class="home-step__number">01</span>
+        <h3>Choose a theme that feels close</h3>
+        <p>Pick a circle that resonates, whether you want to speak or simply listen your way in.</p>
+      </article>
+      <article class="home-step">
+        <span class="home-step__number">02</span>
+        <h3>Enter a smaller room</h3>
+        <p>Each group is intentionally limited so people are not competing for volume, speed, or emotional airtime.</p>
+      </article>
+      <article class="home-step">
+        <span class="home-step__number">03</span>
+        <h3>Share in a guided flow</h3>
+        <p>A facilitator holds the pace, the boundaries, and the transitions so stories do not get rushed or talked over.</p>
+      </article>
+      <article class="home-step">
+        <span class="home-step__number">04</span>
+        <h3>Leave lighter than you arrived</h3>
+        <p>Reflection replaces fixing. The room closes gently, with enough care that the conversation keeps its shape.</p>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section id="how" style="background:white;">
-  <div style="max-width:1200px;margin:0 auto;text-align:center;">
-    <div class="section-tag">The Process</div>
-    <h2 class="section-title">How a Circle Works</h2>
-    <p class="section-sub" style="margin:0 auto;">Simple, structured, and safe. Every session follows a gentle flow designed to make opening up feel natural — even for first-timers.</p>
-    <div class="steps-grid">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h3>Pick a Theme</h3>
-        <p>Choose a session that resonates — from "Navigating the Workplace" to "Rediscovering Joy in Music."</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h3>Enter the Circle</h3>
-        <p>Join a small, curated group of 5–7 strangers on our clarity-first platform — optional live captions and a facilitator-led flow keep conversation clear for everyone.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h3>Tell Your Story</h3>
-        <p>Share a 5-minute story, or simply listen. A trained facilitator ensures everyone has space to speak.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <h3>Feel Heard</h3>
-        <p>Others reflect back — not advice, just empathy. You leave lighter than you arrived.</p>
-      </div>
-    </div>
-    <div style="margin-top:3rem;padding:2rem;background:var(--warm);border-radius:20px;border:1px solid var(--border);max-width:700px;margin-left:auto;margin-right:auto;">
-      <div style="font-family:'Playfair Display',serif;font-size:1.1rem;margin-bottom:0.8rem;font-style:italic;">"The Ground Rules"</div>
-      <div style="display:flex;gap:2rem;flex-wrap:wrap;justify-content:center;font-size:0.88rem;color:var(--muted);">
-        <span>✓ No advice-giving (unless asked)</span>
-        <span>✓ No interrupting</span>
-        <span>✓ What's said here, stays here</span>
-        <span>✓ Pseudonyms welcome</span>
-        <span>✓ Camera optional</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ACCESSIBILITY -->
 <section class="access-section" id="accessibility">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-tag">Clarity-First Design</div>
-    <h2 class="section-title">Features That Make Conversation Clear for Everyone</h2>
-    <p class="section-sub">Our tools are designed to help conversations land — for every listener and every speaker. Clarity-first features are optional and built for the whole group, not a specific condition.</p>
-    <div class="access-grid" id="accessGrid">
-      <div class="access-features">
-        <div class="access-feat">
-          <div class="feat-icon">💬</div>
-          <div>
-            <h4>Real-Time Captions</h4>
-            <p>Optional live transcription appears on screen to support comprehension and shared attention for everyone in the circle.</p>
-          </div>
-        </div>
-        <div class="access-feat">
-          <div class="feat-icon">🔕</div>
-          <div>
-            <h4>One-Speaker Flow</h4>
-            <p>Facilitators keep a single-speaker structure so stories are heard fully, without cross-talk or overlapping audio.</p>
-          </div>
-        </div>
-        <div class="access-feat">
-          <div class="feat-icon">🫡</div>
-          <div>
-            <h4>No Interruptions</h4>
-            <p>Respectful turn-taking creates a calm space where sharing feels safe and contained.</p>
-          </div>
-        </div>
-        <div class="access-feat">
-          <div class="feat-icon">🔒</div>
-          <div>
-            <h4>Zero-Recording Policy</h4>
-            <p>Sessions are not recorded by default — no audio or video is stored. Your story stays in the room.</p>
-          </div>
-        </div>
+  <div class="access-editorial">
+    <div class="access-intro">
+      <div class="section-tag">Clarity-First Design</div>
+      <h2 class="section-title">Good listening gets easier when the room is designed for it.</h2>
+      <p class="section-sub">Captions, one-speaker flow, careful pacing, and no interruptions are not extras. They are what make conversation feel calmer, clearer, and more dignified for everyone in the room.</p>
+    </div>
+    <div class="access-list">
+      <div class="access-item">
+        <h3>Real-time captions</h3>
+        <p>Optional live transcription supports comprehension and shared attention without changing the tone of the room.</p>
       </div>
-      <div class="access-visual" id="liveSessionPreview">
-        <div class="live-badge">Live Session in Progress</div>
-        <div class="caption-demo">
-          <div class="speaker">A speaker is sharing...</div>
-          <div id="liveSessionQuote" style="margin-bottom:0.8rem;">"When I finally told that story out loud, the room didn't rush me — they listened. That felt like permission to be myself."</div>
-          <div class="caption-bar"></div>
-        </div>
-        <div id="liveSessionMeta" style="color:rgba(250,246,239,0.4);font-size:0.8rem;z-index:1;">
-          5 listeners · Live captions available · Anonymous
-        </div>
+      <div class="access-item">
+        <h3>One-speaker flow</h3>
+        <p>Facilitators protect turn-taking so stories can be heard in full, without overlap or cross-talk.</p>
+      </div>
+      <div class="access-item">
+        <h3>No interruptions</h3>
+        <p>Respectful pacing creates a calmer environment where people do not have to oversell themselves to be understood.</p>
+      </div>
+      <div class="access-item">
+        <h3>Zero-recording default</h3>
+        <p>Sessions are not recorded by default. Stories stay in the room instead of becoming content.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- UPCOMING SESSIONS -->
-<section class="sessions-section" id="sessions">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-tag">Upcoming Circles</div>
-    <h2 class="section-title">Join a Session This Month</h2>
-    <p class="section-sub">Each circle is themed and curated. Spots are intentionally kept small for intimacy.</p>
+<section class="sessions-section home-sessions" id="sessions">
+  <div class="home-sessions__wrap">
+    <figure class="wide-editorial-media wide-editorial-media--home">
+      <img
+        src="src/images/optimized/group-unmute-home.jpg"
+        alt="A small Unmute group sharing a remote session together from home"
+        width="1600"
+        height="775"
+        decoding="async"
+        loading="lazy"
+      >
+      <figcaption>The room stays small enough that people can actually stay present.</figcaption>
+    </figure>
+    <div class="home-sessions__head">
+      <div>
+        <div class="section-tag">Upcoming Circles</div>
+        <h2 class="section-title">Join a session this month.</h2>
+      </div>
+      <p class="section-sub">Each circle is themed and curated. The live schedule below stays current with the booking backend, but the atmosphere always stays intentionally small.</p>
+    </div>
     <div class="sessions-grid sessions-grid--status" id="sessionsGrid">
       <div class="sessions-state" data-variant="loading">
         <h3>Loading live session schedule</h3>
         <p>We are fetching current circles from the booking backend.</p>
       </div>
     </div>
-    <div style="text-align:center;margin-top:2.5rem;">
+    <div class="home-sessions__actions">
       <a href="/sessions" class="btn-secondary">See All Sessions →</a>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
-<section style="background:white;">
-  <div style="max-width:1200px;margin:0 auto;">
-    <div class="section-tag">Stories from Members</div>
-    <h2 class="section-title">What People Are Saying</h2>
-    <div class="testimonials-grid">
-      <div class="testimonial">
-        <div class="quote-mark">"</div>
-        <p>For the first time in a long while, I felt my story land. The circle's structure let me speak without worrying about being judged — that feeling was everything.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">A</div>
-          <div>
-            <div class="author-name">Anish, 32</div>
-            <div class="author-detail">Mumbai · Member since Jan 2026</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial">
-        <div class="quote-mark">"</div>
-        <p>I joined to listen, but the calm structure made it safe to share my story for the first time. I left feeling lighter and more seen.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">R</div>
-          <div>
-            <div class="author-name">Rekha, 41</div>
-            <div class="author-detail">Bengaluru · Member since Dec 2025</div>
-          </div>
-        </div>
-      </div>
-      <div class="testimonial">
-        <div class="quote-mark">"</div>
-        <p>I was nervous about opening up, but the group's care and the facilitator's pace made sharing feel possible. People listened — not to respond, but to understand.</p>
-        <div class="testimonial-author">
-          <div class="author-avatar">K</div>
-          <div>
-            <div class="author-name">Kartik, 27</div>
-            <div class="author-detail">Delhi · Member since Feb 2026</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ABOUT FOUNDER -->
-<section class="about-section">
-  <div style="max-width:1200px;margin:0 auto;" id="founder">
-    <div class="about-grid">
-      <div class="about-visual">
-        <div class="about-card-main">
-          <img 
-            src="src/images/about-founder.jpg" 
-            alt="Unmute founder" 
-            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:24px;z-index:0;"
-            onerror="this.style.display='none'"
-          />
-          <div style="font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:beige;position:relative;z-index:1;">
-    "Silence should be a choice, never a consequence."
-</div>
-        </div>
-        <div class="about-float">
-          <div class="about-float-num">3 Yrs</div>
-          <div class="about-float-label">Building Safe Spaces</div>
-        </div>
-      </div>
-      <div class="about-text">
-        <div class="section-tag">About Unmute</div>
-        <h2 class="section-title">Built for Deeper Listening</h2>
-        <p>Unmute began from a simple conviction: modern life needs more spaces for honest, undistracted storytelling. People are full of important stories — they just rarely get the room to tell them.</p>
-        <p>We are not a clinic or a therapy service. We are a curated community that believes storytelling builds confidence, connection, and clarity. Our method is structured empathy — deliberate prompts, respectful pacing, and experienced facilitation.</p>
-        <p>Every session is designed so the story is the focus: small groups, clear turn-taking, and a warm environment that makes sharing feel safe and meaningful.</p>
-        <div class="about-values">
-          <span class="value-tag">Empathy First</span>
-          <span class="value-tag">No Medical Advice</span>
-          <span class="value-tag">Creative Community</span>
-          <span class="value-tag">Radical Privacy</span>
-          <span class="value-tag">Curated Circles</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
-<section class="pricing-section" id="pricing">
-  <div style="max-width:1200px;margin:0 auto;text-align:center;">
-    <div class="section-tag">Membership</div>
-    <h2 class="section-title">Simple, Honest Pricing</h2>
-    <p class="section-sub" style="margin:0 auto;">Start free. Stay because it matters. We also offer a "Pay What You Can" option — just reach out.</p>
-    <div class="pricing-grid">
-      <div class="pricing-card">
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem;">Drop-In</h3>
-        <div class="price-num">₹299</div>
-        <div class="price-period">per session</div>
-        <ul class="price-features">
-          <li>Access to one themed circle</li>
-          <li>Live captions available</li>
-          <li>Avatar mode available</li>
-          <li>Facilitator-led session</li>
-        </ul>
-        <a href="#" class="btn-secondary" style="display:block;text-align:center;" onclick="openModal(event)">Book a Session</a>
-      </div>
-      <div class="pricing-card popular">
-        <div class="pricing-badge">MOST POPULAR</div>
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem;color:var(--cream);">Inner Circle</h3>
-        <div class="price-num">₹499</div>
-        <div class="price-period" style="color:rgba(250,246,239,0.4);">per month</div>
-        <ul class="price-features">
-          <li>Unlimited sessions</li>
-          <li>1-on-1 mentor matching</li>
-          <li>Private member forum</li>
-          <li>Early access to new circles</li>
-          <li>Monthly "Listening Circle" exclusive</li>
-        </ul>
-        <a href="#" class="btn-primary" style="display:block;text-align:center;" onclick="openModal(event)">Become a Member</a>
-      </div>
-      <div class="pricing-card">
-        <h3 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem;">Free</h3>
-        <div class="price-num" style="font-size:2.5rem;">Try First</div>
-        <div class="price-period">your first session</div>
-        <ul class="price-features">
-          <li>One free open circle session</li>
-          <li>Live captions available</li>
-          <li>Meet the community</li>
-          <li>No commitment required</li>
-        </ul>
-        <a href="#" class="btn-secondary" style="display:block;text-align:center;" onclick="openModal(event)">Join Free Session</a>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section style="background:white;" id="faq">
-  <div style="max-width:1200px;margin:0 auto;text-align:center;">
-    <div class="section-tag">Questions</div>
-    <h2 class="section-title">Frequently Asked</h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFAQ(this)">What if I'm too nervous to share?</button>
-        <div class="faq-a">It's completely fine to listen. Many members spend their first sessions absorbing stories. There's no pressure to speak — your presence is valuable.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFAQ(this)">Are sessions in Hindi or regional languages?</button>
-        <div class="faq-a">We currently host circles in English and Hinglish. We add regional-language circles based on demand — tell us what you'd like and we'll consider it.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFAQ(this)">How do the real-time captions work?</button>
-        <div class="faq-a">Real-time captions are an optional clarity feature available in sessions. They transcribe speech live on screen to help everyone follow along. Facilitators can correct or clarify if needed.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFAQ(this)">Is this therapy or counselling?</button>
-        <div class="faq-a">No. Unmute is a peer storytelling and listening community, not a clinical therapy service. If you're in crisis or need professional help, please reach out to qualified providers.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFAQ(this)">Do I have to speak?</button>
-        <div class="faq-a">No. Speaking is optional. Many members prefer to listen for several sessions before sharing. When you do speak, the structure ensures your story is heard fully.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFAQ(this)">Are sessions recorded?</button>
-        <div class="faq-a">Sessions are not recorded by default. Our standard practice is a zero-recording policy so stories stay in the room. Facilitators may keep minimal, de-identified notes for scheduling or safety, never the content of shares.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFAQ(this)">Who is this for?</button>
-        <div class="faq-a">Anyone who wants quieter, deeper conversations: people rebuilding confidence, curious listeners, storytellers, and those seeking a calm, structured space to share and be heard.</div>
-      </div>
+<section class="home-founder">
+  <div class="home-founder__wrap" id="founder">
+    <figure class="editorial-founder-card editorial-founder-card--home">
+      <img
+        src="src/images/optimized/about-founder.jpg"
+        alt="Portrait of the Unmute founder"
+        width="1200"
+        height="2148"
+        decoding="async"
+        loading="lazy"
+      >
+      <figcaption>Small by design. Calm by design.</figcaption>
+    </figure>
+    <div class="home-founder__content">
+      <div class="section-tag">Founder Note</div>
+      <h2 class="section-title">Built for deeper listening, not louder participation.</h2>
+      <p>Unmute began from a simple conviction: people are not short on stories, they are short on rooms that know how to hold those stories with enough patience, warmth, and structure.</p>
+      <p>We are not a clinic or a therapy service. We are a curated community built around guided attention, careful pacing, and the belief that honesty lands differently when it is not rushed.</p>
+      <blockquote class="home-founder__quote">“Silence should be a choice, never a consequence.”</blockquote>
+      <a href="/about" class="section-link">Read more about Unmute</a>
     </div>
   </div>
 </section>
