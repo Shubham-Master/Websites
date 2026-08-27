@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About Unmute</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="main.css">
 <link rel="stylesheet" href="pages.css">
 </head>
@@ -20,9 +20,9 @@
     <li><a href="/faq">FAQ</a></li>
     <li><a href="#" class="nav-cta" onclick="openModal(event)">Join a Circle</a></li>
   </ul>
-  <div class="hamburger" onclick="toggleMenu()">
+  <button type="button" id="hamburgerBtn" class="hamburger" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
     <span></span><span></span><span></span>
-  </div>
+  </button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a class="active" href="/about">About</a>
@@ -62,7 +62,7 @@
       <h2 class="page-aside-title">Why it exists</h2>
       <p class="page-aside-copy">Modern spaces often reward speed, noise, and instant reactions. Unmute is the opposite: slower, warmer, and guided enough that a meaningful conversation can actually unfold.</p>
       <div class="quote-card">
-        <blockquote>"Silence should be a choice, never a consequence."</blockquote>
+        <blockquote>“Silence should be a choice, never a consequence.”</blockquote>
         <cite>Unmute founder note</cite>
       </div>
     </aside>
@@ -73,7 +73,6 @@
   <div class="page-section__wrap">
     <div class="page-section__head">
       <div>
-        <div class="section-tag">What We Protect</div>
         <h2>Our values are less like slogans and more like room settings.</h2>
       </div>
       <p>Everything about Unmute is designed to shape the feeling of the room: who gets invited, how people speak, how facilitators hold pace, and what happens when someone needs more care.</p>
@@ -103,7 +102,6 @@
   <div class="page-section__wrap">
     <div class="page-section__head">
       <div>
-        <div class="section-tag">Inside Unmute</div>
         <h2>What makes our circles feel different</h2>
       </div>
       <p>We focus less on scale and more on atmosphere. That means careful curation, clear expectations, and enough warmth that people do not have to fight for the room.</p>
@@ -129,7 +127,6 @@
   <div class="page-section__wrap">
     <div class="page-section__head">
       <div>
-        <div class="section-tag">Founder Lens</div>
         <h2>Built for deeper listening, not louder participation</h2>
       </div>
       <p>Unmute is not a therapy product and not a social feed. It sits somewhere else: a carefully moderated human environment for honesty, reflection, and connection.</p>
@@ -209,17 +206,17 @@
     </div>
     <p>Reserve your spot or attend the next free open session. We'll send you a confirmation and session link.</p>
     <div class="form-group">
-      <label>Your Name (or Pseudonym)</label>
-      <input type="text" placeholder="e.g. Priya or 'Blue Jay'" id="f-name">
+      <label for="f-name">Your Name (or Pseudonym)</label>
+      <input type="text" placeholder="e.g. Priya or 'Blue Jay'" id="f-name" name="name" autocomplete="name">
     </div>
     <div class="form-group">
-      <label>Email or WhatsApp Number</label>
-      <input type="text" placeholder="For your session link" id="f-contact">
+      <label for="f-contact">Email or WhatsApp Number</label>
+      <input type="text" placeholder="For your session link" id="f-contact" name="contact" autocomplete="off">
     </div>
     <div class="form-group">
-      <label>Which Session Interests You?</label>
-      <select id="f-session">
-        <option value="">Connecting to live session schedule...</option>
+      <label for="f-session">Which Session Interests You?</label>
+      <select id="f-session" name="session" autocomplete="off">
+        <option value="">Connecting to live session schedule…</option>
       </select>
     </div>
     <div class="topic-panel">
@@ -229,7 +226,7 @@
       </div>
       <div class="form-group">
         <label for="f-topic">Promoted Topics This Week</label>
-        <select id="f-topic">
+        <select id="f-topic" name="topic">
           <option value="">Select a promoted topic</option>
           <option value="Finding confidence in noisy spaces">Finding confidence in noisy spaces</option>
           <option value="Asking for help without guilt">Asking for help without guilt</option>
@@ -240,20 +237,20 @@
       </div>
       <div class="form-group" style="margin-bottom:0;">
         <label for="f-custom-topic">Suggest Your Own Topic</label>
-        <textarea id="f-custom-topic" placeholder="Share a custom topic idea. Our team will review it before adding it to a future circle."></textarea>
+        <textarea id="f-custom-topic" name="custom-topic" placeholder="Share a custom topic idea. Our team will review it before adding it to a future circle."></textarea>
         <div class="field-help">Custom topics are reviewed manually by our team before they go live.</div>
       </div>
     </div>
     <div class="form-group">
-      <label>Anything you'd like us to know? (optional)</label>
-      <textarea id="f-note" placeholder="Accessibility needs, questions, anything at all..."></textarea>
+      <label for="f-note">Anything you'd like us to know? (optional)</label>
+      <textarea id="f-note" name="note" placeholder="Accessibility needs, questions, anything at all…"></textarea>
     </div>
-    <p id="form-status" style="font-size:0.9rem;color:var(--muted);margin:0 0 1rem;"></p>
+    <p id="form-status" role="status" aria-live="polite" style="font-size:0.9rem;color:var(--muted);margin:0 0 1rem;"></p>
     <button class="btn-primary" id="f-submit" style="width:100%;border:none;font-size:1rem;padding:1rem;" onclick="submitForm()">Reserve My Spot →</button>
   </div>
 </div>
 
-<div class="toast" id="toast">🎉 You're in! Check your inbox for the session link.</div>
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">🎉 You're in! Check your inbox for the session link.</div>
 
 <script src="app-config.js"></script>
 <script src="main.js"></script>

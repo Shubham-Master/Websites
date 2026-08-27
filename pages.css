@@ -24,7 +24,7 @@
 
 .home-directory {
   background:
-    radial-gradient(circle at top right, rgba(200, 133, 74, 0.12), transparent 30%),
+    radial-gradient(circle at top right, rgba(196, 103, 74, 0.12), transparent 30%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(242, 232, 217, 0.78));
 }
 
@@ -56,13 +56,13 @@
   width: 160px;
   height: 160px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(200, 133, 74, 0.18), transparent 70%);
+  background: radial-gradient(circle, rgba(196, 103, 74, 0.18), transparent 70%);
 }
 
 .destination-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 20px 50px rgba(28, 21, 16, 0.1);
-  border-color: rgba(200, 133, 74, 0.36);
+  box-shadow: 0 20px 50px rgba(31, 28, 25, 0.1);
+  border-color: rgba(196, 103, 74, 0.36);
 }
 
 .destination-card:nth-child(2n) {
@@ -77,7 +77,7 @@
   display: inline-flex;
   padding: 0.3rem 0.7rem;
   border-radius: 999px;
-  background: rgba(200, 133, 74, 0.12);
+  background: rgba(196, 103, 74, 0.12);
   color: var(--amber);
   font-size: 0.75rem;
   letter-spacing: 0.08em;
@@ -86,7 +86,7 @@
 }
 
 .destination-card h3 {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.45rem;
   margin-bottom: 0.7rem;
 }
@@ -123,20 +123,20 @@
 .page-shell {
   min-height: 100vh;
   background:
-    radial-gradient(circle at top left, rgba(200, 133, 74, 0.1), transparent 22%),
+    radial-gradient(circle at top left, rgba(196, 103, 74, 0.1), transparent 22%),
     linear-gradient(180deg, #fbf7f1 0%, #f7efe3 100%);
 }
 
 .page-shell--contrast {
   background:
-    radial-gradient(circle at top right, rgba(122, 158, 126, 0.12), transparent 22%),
+    radial-gradient(circle at top right, rgba(124, 153, 104, 0.12), transparent 22%),
     linear-gradient(180deg, #1c1510 0%, #281c14 100%);
   color: var(--cream);
 }
 
 .page-shell--faq {
   background:
-    radial-gradient(circle at top right, rgba(200, 133, 74, 0.08), transparent 26%),
+    radial-gradient(circle at top right, rgba(196, 103, 74, 0.08), transparent 26%),
     linear-gradient(180deg, #fbf7f1 0%, #f7efe3 100%);
 }
 
@@ -155,7 +155,7 @@
 
 .page-hero__main,
 .page-hero__aside {
-  border-radius: 30px;
+  border-radius: var(--radius-xl);
   border: 1px solid var(--border);
   overflow: hidden;
 }
@@ -173,18 +173,18 @@
 
 .page-shell--contrast .page-hero__main {
   background:
-    linear-gradient(145deg, rgba(49, 35, 25, 0.96), rgba(28, 21, 16, 0.95));
+    linear-gradient(145deg, rgba(49, 35, 25, 0.96), rgba(31, 28, 25, 0.95));
 }
 
 .page-hero__aside {
   padding: 2.2rem;
   background:
-    linear-gradient(180deg, rgba(200, 133, 74, 0.14), rgba(255, 255, 255, 0.92));
+    linear-gradient(180deg, rgba(196, 103, 74, 0.14), rgba(255, 255, 255, 0.92));
 }
 
 .page-shell--contrast .page-hero__aside {
   background:
-    linear-gradient(180deg, rgba(200, 133, 74, 0.2), rgba(50, 36, 26, 0.96));
+    linear-gradient(180deg, rgba(196, 103, 74, 0.2), rgba(50, 36, 26, 0.96));
 }
 
 .page-eyebrow {
@@ -194,7 +194,7 @@
   margin-bottom: 1rem;
   padding: 0.38rem 0.9rem;
   border-radius: 999px;
-  background: rgba(200, 133, 74, 0.14);
+  background: rgba(196, 103, 74, 0.14);
   color: var(--amber);
   font-size: 0.78rem;
   font-weight: 600;
@@ -203,12 +203,12 @@
 }
 
 .page-shell--contrast .page-eyebrow {
-  background: rgba(200, 133, 74, 0.16);
+  background: rgba(196, 103, 74, 0.16);
   color: var(--amber-light);
 }
 
 .page-title {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: clamp(2.6rem, 5vw, 4.6rem);
   line-height: 1.04;
   letter-spacing: -0.03em;
@@ -264,7 +264,7 @@
 
 .page-metric strong {
   display: block;
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.8rem;
   margin-bottom: 0.2rem;
 }
@@ -280,7 +280,7 @@
 }
 
 .page-aside-title {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.55rem;
   margin-bottom: 1rem;
 }
@@ -304,7 +304,7 @@
 .rule-card,
 .format-card,
 .membership-band {
-  border-radius: 24px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.88);
 }
@@ -339,7 +339,7 @@
 }
 
 .quote-card blockquote {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.35rem;
   line-height: 1.55;
 }
@@ -369,7 +369,7 @@
 }
 
 .page-section__head h2 {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.08;
 }
@@ -397,7 +397,7 @@
 .value-card h3,
 .faq-category h3,
 .format-card h3 {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.35rem;
   margin-bottom: 0.7rem;
 }
@@ -433,19 +433,19 @@
   grid-template-columns: 90px minmax(0, 1fr);
   gap: 1rem;
   padding: 1.2rem 1.4rem;
-  border-radius: 24px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.9);
 }
 
 .timeline-item strong {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 2.4rem;
   color: var(--amber);
 }
 
 .timeline-item h3 {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.35rem;
   margin-bottom: 0.5rem;
 }
@@ -566,12 +566,12 @@
   grid-template-columns: 86px minmax(0, 1fr);
   gap: 1.4rem;
   padding: 1.7rem 0;
-  border-top: 1px solid rgba(28, 21, 16, 0.12);
+  border-top: 1px solid rgba(31, 28, 25, 0.12);
   max-width: 920px;
 }
 
 .guided-step:last-child {
-  border-bottom: 1px solid rgba(28, 21, 16, 0.12);
+  border-bottom: 1px solid rgba(31, 28, 25, 0.12);
 }
 
 .guided-step:nth-child(2) {
@@ -593,14 +593,14 @@
 }
 
 .guided-step__number {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 2.6rem;
   line-height: 0.92;
   color: var(--amber);
 }
 
 .guided-step__body h3 {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.52rem;
   color: var(--deep);
   margin-bottom: 0.45rem;
@@ -621,10 +621,10 @@
   max-width: 1080px;
   margin: 0 auto;
   padding: 2.25rem;
-  border-radius: 32px;
+  border-radius: var(--radius-xl);
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 24px 55px rgba(28, 21, 16, 0.06);
+  box-shadow: 0 14px 36px rgba(31, 28, 25, 0.05);
 }
 
 .page-interruption__intro {
@@ -634,7 +634,7 @@
 
 .page-interruption__intro h2,
 .page-interruption__copy h2 {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.08;
   color: var(--deep);
@@ -651,7 +651,7 @@
 .page-interruption__media {
   position: relative;
   overflow: hidden;
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
   border: 1px solid var(--border);
   background: var(--warm);
 }
@@ -673,10 +673,10 @@
   border-radius: 18px;
   background: rgba(250, 246, 239, 0.92);
   color: var(--deep);
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 0.95rem;
   line-height: 1.35;
-  box-shadow: 0 14px 32px rgba(28, 21, 16, 0.08);
+  box-shadow: 0 14px 32px rgba(31, 28, 25, 0.08);
 }
 
 .page-section--paper {
@@ -721,7 +721,7 @@
 
 .rule-line h3,
 .clarity-item h3 {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.35rem;
   color: var(--deep);
   margin-bottom: 0.45rem;
@@ -755,7 +755,7 @@
 
 .faq-signal-card {
   padding: 1.35rem 1.3rem;
-  border-radius: 28px;
+  border-radius: var(--radius-lg);
   background: rgba(255, 255, 255, 0.9);
 }
 
@@ -790,10 +790,10 @@
 
 .faq-support-visual {
   overflow: hidden;
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
   border: 1px solid var(--border);
   background: var(--warm);
-  box-shadow: 0 22px 48px rgba(28, 21, 16, 0.08);
+  box-shadow: 0 14px 34px rgba(31, 28, 25, 0.07);
 }
 
 .faq-support-visual img {
@@ -809,7 +809,7 @@
 }
 
 .faq-support-copy h2 {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.08;
   color: var(--deep);
@@ -836,7 +836,7 @@
 }
 
 .page-interlude__copy h2 {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: clamp(2rem, 4vw, 3rem);
   line-height: 1.08;
   margin-bottom: 0.9rem;
@@ -861,8 +861,8 @@
   content: "";
   position: absolute;
   inset: 18px -18px -18px 18px;
-  border-radius: 30px;
-  background: rgba(200, 133, 74, 0.16);
+  border-radius: var(--radius-xl);
+  background: rgba(196, 103, 74, 0.16);
 }
 
 .page-portrait-callout img {
@@ -873,16 +873,16 @@
   aspect-ratio: 1531 / 2571;
   object-fit: cover;
   object-position: 56% center;
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
   border: 1px solid var(--border);
-  box-shadow: 0 22px 50px rgba(28, 21, 16, 0.12);
+  box-shadow: 0 16px 38px rgba(31, 28, 25, 0.10);
 }
 
 .page-wide-media,
 .page-hero-banner {
   position: relative;
   overflow: hidden;
-  border-radius: 30px;
+  border-radius: var(--radius-xl);
   border: 1px solid var(--border);
   background: var(--deep);
 }
@@ -892,7 +892,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(28, 21, 16, 0.58) 0%, rgba(28, 21, 16, 0.1) 58%, transparent 100%);
+  background: linear-gradient(to top, rgba(31, 28, 25, 0.58) 0%, rgba(31, 28, 25, 0.1) 58%, transparent 100%);
 }
 
 .page-wide-media {
@@ -925,7 +925,7 @@
   z-index: 1;
   max-width: 25ch;
   color: var(--cream);
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: clamp(1.35rem, 2vw, 1.9rem);
   line-height: 1.2;
 }
@@ -937,13 +937,13 @@
 
 .sessions-callout {
   padding: 1.8rem;
-  border-radius: 24px;
-  background: linear-gradient(180deg, rgba(28, 21, 16, 0.96), rgba(47, 33, 22, 0.96));
+  border-radius: var(--radius-lg);
+  background: linear-gradient(180deg, rgba(31, 28, 25, 0.96), rgba(47, 33, 22, 0.96));
   color: var(--cream);
 }
 
 .sessions-callout h3 {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.7rem;
   margin-bottom: 0.9rem;
 }
@@ -987,13 +987,13 @@
   top: 100px;
   align-self: start;
   padding: 1.4rem;
-  border-radius: 24px;
+  border-radius: var(--radius-lg);
   border: 1px solid var(--border);
   background: rgba(255, 255, 255, 0.88);
 }
 
 .legal-nav h2 {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.4rem;
   margin-bottom: 0.9rem;
 }
@@ -1014,7 +1014,7 @@
 }
 
 .legal-card h3 {
-  font-family: "Playfair Display", serif;
+  font-family: 'Fraunces', serif;
   font-size: 1.45rem;
   margin-bottom: 0.8rem;
 }
@@ -1117,7 +1117,7 @@
 
   .page-wide-media,
   .page-hero-banner {
-    border-radius: 24px;
+    border-radius: var(--radius-lg);
   }
 
   .page-wide-media figcaption,
