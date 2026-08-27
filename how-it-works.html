@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>How Unmute Works</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="main.css">
 <link rel="stylesheet" href="pages.css">
 </head>
@@ -20,9 +20,9 @@
     <li><a href="/faq">FAQ</a></li>
     <li><a href="#" class="nav-cta" onclick="openModal(event)">Join a Circle</a></li>
   </ul>
-  <div class="hamburger" onclick="toggleMenu()">
+  <button type="button" id="hamburgerBtn" class="hamburger" onclick="toggleMenu()" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
     <span></span><span></span><span></span>
-  </div>
+  </button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
   <a href="/about">About</a>
@@ -57,7 +57,7 @@
         </div>
         <div class="how-hero-point">
           <strong>Dignity</strong>
-          <p>You can listen quietly, share softly, or use a pseudonym without being treated as "less involved."</p>
+          <p>You can listen quietly, share softly, or use a pseudonym without being treated as “less involved.”</p>
         </div>
       </div>
     </aside>
@@ -68,7 +68,6 @@
   <div class="page-section__wrap">
     <div class="page-section__head">
       <div>
-        <div class="section-tag">Session Flow</div>
         <h2>What happens from the moment you enter</h2>
       </div>
       <p>The flow is simple enough to feel natural but structured enough that people do not have to guess how the space works.</p>
@@ -116,7 +115,6 @@
 <section class="page-interruption">
   <div class="page-interruption__wrap">
     <div class="page-interruption__intro">
-      <div class="section-tag">Inside the Room</div>
       <h2>The format is online, but it should never feel thin.</h2>
       <p>The room is designed to feel guided and present even through a screen: slower pacing, cleaner turn-taking, and enough structure that people do not get emotionally flattened by the medium.</p>
     </div>
@@ -138,10 +136,9 @@
   <div class="page-section__wrap">
     <div class="page-section__head">
       <div>
-        <div class="section-tag">Ground Rules</div>
         <h2>The room works because everyone knows the edges</h2>
       </div>
-      <p>These are not "nice to have" community ideas. They are operating principles that keep the circle from turning into noise.</p>
+      <p>These are not “nice to have” community ideas. They are operating principles that keep the circle from turning into noise.</p>
     </div>
     <figure class="page-wide-media">
       <img
@@ -179,7 +176,6 @@
   <div class="page-section__wrap">
     <div class="page-section__head">
       <div>
-        <div class="section-tag">Clarity Stack</div>
         <h2>How we make conversation easier to follow</h2>
       </div>
       <p>Unmute is not built around a single condition. It is built around the broader truth that many people understand better when the room is paced with more care.</p>
@@ -195,7 +191,7 @@
       </div>
       <div class="clarity-item">
         <h3>Camera optional</h3>
-        <p>You do not have to be visually "on" to belong. Presence is more important than performance.</p>
+        <p>You do not have to be visually “on” to belong. Presence is more important than performance.</p>
       </div>
     </div>
   </div>
@@ -243,17 +239,17 @@
     </div>
     <p>Reserve your spot or attend the next free open session. We'll send you a confirmation and session link.</p>
     <div class="form-group">
-      <label>Your Name (or Pseudonym)</label>
-      <input type="text" placeholder="e.g. Priya or 'Blue Jay'" id="f-name">
+      <label for="f-name">Your Name (or Pseudonym)</label>
+      <input type="text" placeholder="e.g. Priya or 'Blue Jay'" id="f-name" name="name" autocomplete="name">
     </div>
     <div class="form-group">
-      <label>Email or WhatsApp Number</label>
-      <input type="text" placeholder="For your session link" id="f-contact">
+      <label for="f-contact">Email or WhatsApp Number</label>
+      <input type="text" placeholder="For your session link" id="f-contact" name="contact" autocomplete="off">
     </div>
     <div class="form-group">
-      <label>Which Session Interests You?</label>
-      <select id="f-session">
-        <option value="">Connecting to live session schedule...</option>
+      <label for="f-session">Which Session Interests You?</label>
+      <select id="f-session" name="session" autocomplete="off">
+        <option value="">Connecting to live session schedule…</option>
       </select>
     </div>
     <div class="topic-panel">
@@ -263,7 +259,7 @@
       </div>
       <div class="form-group">
         <label for="f-topic">Promoted Topics This Week</label>
-        <select id="f-topic">
+        <select id="f-topic" name="topic">
           <option value="">Select a promoted topic</option>
           <option value="Finding confidence in noisy spaces">Finding confidence in noisy spaces</option>
           <option value="Asking for help without guilt">Asking for help without guilt</option>
@@ -274,20 +270,20 @@
       </div>
       <div class="form-group" style="margin-bottom:0;">
         <label for="f-custom-topic">Suggest Your Own Topic</label>
-        <textarea id="f-custom-topic" placeholder="Share a custom topic idea. Our team will review it before adding it to a future circle."></textarea>
+        <textarea id="f-custom-topic" name="custom-topic" placeholder="Share a custom topic idea. Our team will review it before adding it to a future circle."></textarea>
         <div class="field-help">Custom topics are reviewed manually by our team before they go live.</div>
       </div>
     </div>
     <div class="form-group">
-      <label>Anything you'd like us to know? (optional)</label>
-      <textarea id="f-note" placeholder="Accessibility needs, questions, anything at all..."></textarea>
+      <label for="f-note">Anything you'd like us to know? (optional)</label>
+      <textarea id="f-note" name="note" placeholder="Accessibility needs, questions, anything at all…"></textarea>
     </div>
-    <p id="form-status" style="font-size:0.9rem;color:var(--muted);margin:0 0 1rem;"></p>
+    <p id="form-status" role="status" aria-live="polite" style="font-size:0.9rem;color:var(--muted);margin:0 0 1rem;"></p>
     <button class="btn-primary" id="f-submit" style="width:100%;border:none;font-size:1rem;padding:1rem;" onclick="submitForm()">Reserve My Spot →</button>
   </div>
 </div>
 
-<div class="toast" id="toast">🎉 You're in! Check your inbox for the session link.</div>
+<div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true">🎉 You're in! Check your inbox for the session link.</div>
 
 <script src="app-config.js"></script>
 <script src="main.js"></script>

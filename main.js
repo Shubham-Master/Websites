@@ -42,10 +42,22 @@ const state = {
   sessions: [],
   selectedSessionId: '',
   apiBaseUrl: getConfiguredApiBaseUrl(),
-  liveSession: null,
   sessionsStatus: 'idle',
   sessionsError: ''
 };
+
+const MOOD_TAGS = [
+  { key: 'rose', label: 'Tender', words: ['heartbreak', 'love', 'loss', 'grief', 'family', 'vulnerab', 'tender', 'relationship', 'misunderstood'] },
+  { key: 'gold', label: 'Nostalgic', words: ['memory', 'memories', 'childhood', 'nostalgi', 'music', 'remember', 'joy'] },
+  { key: 'lavender', label: 'Playful', words: ['humor', 'funny', 'laugh', 'whimsi', 'playful', 'light'] },
+  { key: 'teal', label: 'Bold', words: ['fear', 'confidence', 'noisy', 'bold', 'brave', 'risk', 'change'] },
+  { key: 'sage', label: 'Reflective', words: ['reflect', 'calm', 'quiet', 'listen', 'pause', 'stillness', 'help', 'guilt'] }
+];
+
+function getSessionMood(session, index) {
+  const haystack = `${session.title || ''} ${session.description || ''}`.toLowerCase();
+  return MOOD_TAGS.find((mood) => mood.words.some((word) => haystack.includes(word))) || MOOD_TAGS[index % MOOD_TAGS.length];
+}
 
 function buildApiCandidates() {
   const candidates = [];
@@ -65,7 +77,8 @@ async function apiFetch(path, options = {}) {
   const candidates = buildApiCandidates();
 
   if (!candidates.length) {
-    throw new Error('Booking API is not configured. Set apiBaseUrl in app-config.js before deploying this site.');
+    console.error('Booking API is not configured. Set apiBaseUrl in app-config.js before deploying this site.');
+    throw new Error('We could not reach the booking service. Please try again shortly.');
   }
 
   let lastNetworkError = null;
@@ -80,7 +93,8 @@ async function apiFetch(path, options = {}) {
     }
   }
 
-  throw lastNetworkError instanceof Error ? lastNetworkError : new Error('Unable to reach the backend API.');
+  console.error(lastNetworkError);
+  throw new Error('We could not reach the booking service. Please try again shortly.');
 }
 
 function getErrorMessage(error, fallback) {
@@ -111,12 +125,20 @@ function byId(id) {
 }
 
 function toggleMenu() {
-  byId('mobileMenu').classList.toggle('open');
+  const menu = byId('mobileMenu');
+  const isOpen = menu.classList.toggle('open');
+  const btn = byId('hamburgerBtn');
+  if (btn) {
+    btn.setAttribute('aria-expanded', String(isOpen));
+  }
 }
+
+let modalTrigger = null;
 
 function openModal(e, sessionId = '') {
   if (e) {
     e.preventDefault();
+    modalTrigger = e.currentTarget || null;
   }
 
   state.selectedSessionId = sessionId || state.selectedSessionId || '';
@@ -132,10 +154,35 @@ function openModal(e, sessionId = '') {
   }
 
   byId('modal').classList.add('open');
+  const firstField = byId('f-name');
+  if (firstField) {
+    firstField.focus();
+  }
 }
 
 function closeModal() {
   byId('modal').classList.remove('open');
+  if (modalTrigger && typeof modalTrigger.focus === 'function') {
+    modalTrigger.focus();
+  }
+  modalTrigger = null;
+}
+
+function handleGlobalKeydown(e) {
+  if (e.key !== 'Escape') {
+    return;
+  }
+
+  const modal = byId('modal');
+  if (modal && modal.classList.contains('open')) {
+    closeModal();
+    return;
+  }
+
+  const menu = byId('mobileMenu');
+  if (menu && menu.classList.contains('open')) {
+    toggleMenu();
+  }
 }
 
 function closeModalOutside(e) {
@@ -173,7 +220,7 @@ function clearFormStatus() {
 function setSubmitLoading(isLoading) {
   const button = byId('f-submit');
   button.disabled = isLoading;
-  button.textContent = isLoading ? 'Saving your spot...' : 'Reserve My Spot →';
+  button.textContent = isLoading ? 'Saving your spot…' : 'Reserve My Spot →';
 }
 
 function inferContactType(contact) {
@@ -211,34 +258,6 @@ function getPriceLabel(session) {
   return session.isFree ? 'Free' : `₹${session.priceInr}`;
 }
 
-function updateLiveSessionPreview(liveSession) {
-  const preview = byId('liveSessionPreview');
-  const grid = byId('accessGrid');
-  if (!preview || !grid) {
-    return;
-  }
-
-  if (!liveSession) {
-    preview.classList.add('is-hidden');
-    grid.classList.add('no-live-preview');
-    return;
-  }
-
-  preview.classList.remove('is-hidden');
-  grid.classList.remove('no-live-preview');
-
-  const quote = byId('liveSessionQuote');
-  const meta = byId('liveSessionMeta');
-
-  if (quote && liveSession.quote) {
-    quote.textContent = liveSession.quote;
-  }
-
-  if (meta && liveSession.meta) {
-    meta.textContent = liveSession.meta;
-  }
-}
-
 function renderSessionsState(variant, title, description) {
   const grid = byId('sessionsGrid');
   if (!grid) {
@@ -261,15 +280,15 @@ function renderSessions() {
   }
 
   if (state.sessionsStatus === 'idle' || state.sessionsStatus === 'loading') {
-    renderSessionsState('loading', 'Loading live session schedule', 'We are fetching current circles from the booking backend.');
+    renderSessionsState('loading', 'Finding the next circle…', 'Checking the schedule for open seats.');
     return;
   }
 
   if (state.sessionsStatus === 'error') {
     renderSessionsState(
       'error',
-      'Live schedule unavailable',
-      state.sessionsError || 'The booking backend is not reachable right now. Set app-config.js and start the backend to show live sessions.'
+      'The schedule is taking a moment',
+      'We could not load upcoming circles just now. Refresh the page, or join the free intro session below and we will get you into a circle directly.'
     );
     return;
   }
@@ -277,8 +296,8 @@ function renderSessions() {
   if (!state.sessions.length) {
     renderSessionsState(
       'empty',
-      'No sessions published yet',
-      'The backend is connected, but there are no bookable circles yet. Publish the first session from the backend or admin panel next.'
+      'New circles are being scheduled',
+      'Nothing is on the calendar this exact moment. Check back soon, or join the free intro circle below to be first in line.'
     );
     return;
   }
@@ -286,12 +305,14 @@ function renderSessions() {
   grid.classList.remove('sessions-grid--status');
   grid.innerHTML = state.sessions.map((session, index) => {
     const featuredClass = index === 0 ? ' featured' : '';
+    const mood = getSessionMood(session, index);
     return `
       <div class="session-card${featuredClass}">
         <div class="session-meta">
           <span class="session-date">${escapeHtml(formatDateTime(session.startsAt))}</span>
           <span class="session-slots">${escapeHtml(getSlotLabel(session))}</span>
         </div>
+        <span class="mood-tag mood-tag--${mood.key}">${escapeHtml(mood.label)}</span>
         <h3>${escapeHtml(session.title)}</h3>
         <p>${escapeHtml(session.description)}</p>
         <div class="session-footer">
@@ -302,7 +323,7 @@ function renderSessions() {
     `;
   }).join('');
 
-  applyRevealAnimations();
+  applyRevealAnimations(grid);
 }
 
 function syncSessionSelect() {
@@ -313,7 +334,7 @@ function syncSessionSelect() {
 
   if (state.sessionsStatus === 'idle' || state.sessionsStatus === 'loading') {
     select.disabled = true;
-    select.innerHTML = '<option value="">Connecting to live session schedule...</option>';
+    select.innerHTML = '<option value="">Connecting to live session schedule…</option>';
     return;
   }
 
@@ -356,30 +377,31 @@ async function loadSessions() {
   renderSessions();
   syncSessionSelect();
 
+  const timeoutController = new AbortController();
+  const timeoutId = setTimeout(() => timeoutController.abort(), 12000);
+
   try {
-    const response = await apiFetch('/sessions');
+    const response = await apiFetch('/sessions', { signal: timeoutController.signal });
     if (!response.ok) {
       throw new Error('Unable to fetch sessions.');
     }
 
     const data = await response.json();
     state.sessions = Array.isArray(data.items) ? data.items : [];
-    state.liveSession = data.liveSession || null;
     state.sessionsStatus = 'ready';
     renderSessions();
-    updateLiveSessionPreview(state.liveSession);
     syncSessionSelect();
   } catch (error) {
     console.error(error);
     state.sessions = [];
-    state.liveSession = null;
     state.sessionsStatus = 'error';
     state.sessionsError = getErrorMessage(error, 'Unable to reach the booking backend.');
     state.selectedSessionId = '';
     renderSessions();
-    updateLiveSessionPreview(null);
-    showToast(`Upcoming sessions could not load right now. ${state.sessionsError}`);
+    showToast('We could not load the schedule just now. You can still join the interest list below.');
     syncSessionSelect();
+  } finally {
+    clearTimeout(timeoutId);
   }
 }
 
@@ -393,11 +415,13 @@ async function submitForm() {
 
   if (!name || !contact) {
     setFormStatus('Please fill in your name and contact details.', true);
+    byId(!name ? 'f-name' : 'f-contact').focus();
     return;
   }
 
   if (!selectedTopic && !customTopic) {
     setFormStatus('Please choose one promoted topic or enter your own topic for review.', true);
+    byId('f-topic').focus();
     return;
   }
 
@@ -513,10 +537,15 @@ const observer = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.1 });
 
-function applyRevealAnimations() {
-  document.querySelectorAll(
-    '.pain-card, .step, .session-card, .testimonial, .access-feat, .pricing-card, .destination-card, .timeline-item, .signal-card, .story-card, .feature-card, .value-card, .rule-card, .faq-category, .legal-card, .format-card, .membership-band, .manifesto-line, .home-step, .access-item, .wide-editorial-media, .editorial-founder-card, .page-portrait-callout, .page-wide-media, .page-hero-banner, .guided-step, .page-interruption__media, .rule-line, .clarity-item, .faq-signal-card, .faq-support-visual'
-  ).forEach((element) => {
+const REVEAL_SELECTOR = '.pain-card, .step, .session-card, .testimonial, .access-feat, .pricing-card, .destination-card, .timeline-item, .signal-card, .story-card, .feature-card, .value-card, .rule-card, .faq-category, .legal-card, .format-card, .membership-band, .manifesto-line, .home-step, .access-item, .wide-editorial-media, .editorial-founder-card, .page-portrait-callout, .page-wide-media, .page-hero-banner, .guided-step, .page-interruption__media, .rule-line, .clarity-item, .faq-signal-card, .faq-support-visual';
+const revealedElements = new WeakSet();
+
+function applyRevealAnimations(root = document) {
+  root.querySelectorAll(REVEAL_SELECTOR).forEach((element) => {
+    if (revealedElements.has(element)) {
+      return;
+    }
+    revealedElements.add(element);
     element.style.opacity = '0';
     element.style.transform = 'translateY(24px)';
     element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -531,8 +560,9 @@ window.closeModalOutside = closeModalOutside;
 window.submitForm = submitForm;
 window.toggleFAQ = toggleFAQ;
 
+document.addEventListener('keydown', handleGlobalKeydown);
+
 applyRevealAnimations();
 renderSessions();
 syncSessionSelect();
-updateLiveSessionPreview(null);
 void loadSessions();

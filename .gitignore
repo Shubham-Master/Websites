@@ -1,3 +1,9 @@
 backend/node_modules/
 backend/dist/
 backend/.env
+.claude/
+.agents/
+skills-lock.json
+design-references/airbnb.md
+design-references/claude.md
+design-references/miro.md
