@@ -1,6 +1,25 @@
 import type { Session } from "./types.js";
 
-const baseYear = 2026;
+const IST_OFFSET = "+05:30";
+
+function futureIso(daysAhead: number, hour: number, minute: number): string {
+  const target = new Date(Date.now() + daysAhead * 24 * 60 * 60 * 1000);
+  const year = target.getUTCFullYear();
+  const month = String(target.getUTCMonth() + 1).padStart(2, "0");
+  const day = String(target.getUTCDate()).padStart(2, "0");
+  const hh = String(hour).padStart(2, "0");
+  const mm = String(minute).padStart(2, "0");
+  return new Date(`${year}-${month}-${day}T${hh}:${mm}:00${IST_OFFSET}`).toISOString();
+}
+
+function addMinutes(iso: string, minutes: number): string {
+  return new Date(new Date(iso).getTime() + minutes * 60 * 1000).toISOString();
+}
+
+const familyDinnersStart = futureIso(7, 19, 30);
+const askForHelpStart = futureIso(14, 18, 0);
+const musicJoyStart = futureIso(21, 20, 0);
+const firstTimerStart = futureIso(28, 19, 0);
 
 export const seededSessions: Session[] = [
   {
@@ -10,8 +29,8 @@ export const seededSessions: Session[] = [
     description:
       "For those who've felt lost in the noise of large family gatherings and found creative ways to stay present.",
     language: "Hinglish",
-    startsAt: new Date(`${baseYear}-03-07T19:30:00+05:30`).toISOString(),
-    endsAt: new Date(`${baseYear}-03-07T20:45:00+05:30`).toISOString(),
+    startsAt: familyDinnersStart,
+    endsAt: addMinutes(familyDinnersStart, 75),
     timezone: "Asia/Kolkata",
     capacity: 7,
     priceInr: 299,
@@ -27,8 +46,8 @@ export const seededSessions: Session[] = [
     description:
       "Exploring the vulnerability and courage it takes to say \"I didn't catch that\" and how to own it.",
     language: "English",
-    startsAt: new Date(`${baseYear}-03-14T18:00:00+05:30`).toISOString(),
-    endsAt: new Date(`${baseYear}-03-14T19:15:00+05:30`).toISOString(),
+    startsAt: askForHelpStart,
+    endsAt: addMinutes(askForHelpStart, 75),
     timezone: "Asia/Kolkata",
     capacity: 7,
     priceInr: 299,
@@ -44,8 +63,8 @@ export const seededSessions: Session[] = [
     description:
       "Stories of finding a new relationship with sound, rhythm, and music, however that looks for you.",
     language: "Hinglish",
-    startsAt: new Date(`${baseYear}-03-21T20:00:00+05:30`).toISOString(),
-    endsAt: new Date(`${baseYear}-03-21T21:15:00+05:30`).toISOString(),
+    startsAt: musicJoyStart,
+    endsAt: addMinutes(musicJoyStart, 75),
     timezone: "Asia/Kolkata",
     capacity: 7,
     priceInr: 299,
@@ -61,8 +80,8 @@ export const seededSessions: Session[] = [
     description:
       "A gentle introduction with no theme, perfect for first-time members who just want to listen or share softly.",
     language: "Hinglish",
-    startsAt: new Date(`${baseYear}-03-28T19:00:00+05:30`).toISOString(),
-    endsAt: new Date(`${baseYear}-03-28T20:15:00+05:30`).toISOString(),
+    startsAt: firstTimerStart,
+    endsAt: addMinutes(firstTimerStart, 75),
     timezone: "Asia/Kolkata",
     capacity: 10,
     priceInr: 0,
